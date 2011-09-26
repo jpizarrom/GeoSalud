@@ -4,7 +4,8 @@ class ProfesionalController extends Controller
 {
 	public function actionIndex()
 	{
-		$model=new SearchProfesionalForm;
+		$this->redirect(array('search'));
+		/*$model=new SearchProfesionalForm;
 		if(isset($_POST['SearchProfesionalForm']))
 		    {
 			// collects user input data
@@ -14,7 +15,7 @@ class ProfesionalController extends Controller
 			    $this->redirect(Yii::app()->user->returnUrl);
 		    }
 
-		$this->render('index',array('model'=>$model));
+		$this->render('index',array('model'=>$model));*/
 	}
 
 	public function actionView($id)
@@ -52,7 +53,7 @@ class ProfesionalController extends Controller
 				));
 				//echo $dataProvider->getItemCount();
 				//$this->render('_list',array('model'=>$model, 'form'=>$form));
-				$this->render('_list',array(
+				$this->render('list',array(
 					'dataProvider'=>$dataProvider,
 				));
 				return;
@@ -62,7 +63,7 @@ class ProfesionalController extends Controller
 			}
 		    }
 
-		$this->render('_form2',array('model'=>$model, 'form'=>$form));
+		$this->render('search',array('model'=>$model, 'form'=>$form));
 	}
 	public function actionList()
 	{
@@ -78,7 +79,8 @@ class ProfesionalController extends Controller
 			    $this->redirect(Yii::app()->user->returnUrl);
 		    }
 
-		$this->render('_form2',array('model'=>$model, 'form'=>$form));
+//		$this->render('_form2',array('model'=>$model, 'form'=>$form));
+		$this->redirect(array('search'));
 	}
 
 	// Uncomment the following methods and override them if needed
