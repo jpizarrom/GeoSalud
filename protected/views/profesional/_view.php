@@ -8,5 +8,8 @@
 	<?php echo CHtml::encode($data->Nombre); ?>
 	<br />
 
+	<b><?php echo CHtml::encode('Mapa'); ?>:</b>
+	<?php echo CHtml::link(CHtml::encode($data->id), array('map', 'id'=>$data->id)); ?>
+	<br />
 
 </div>

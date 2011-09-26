@@ -40,10 +40,11 @@ class ProfesionalController extends Controller
 				$keyword = $model->attributes['profesional'];
 				$criteria = new CDbCriteria;
 				//$criteria->condition = "id=1";
-				$criteria->condition = "Nombre LIKE :keyword";
+				/*$criteria->condition = "Nombre LIKE :keyword";
 				$criteria->params = array (	
 					':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
-				);
+				);*/
+				$criteria->addSearchCondition('Nombre',$keyword);
 				//Especialidad::model()->findall();
 				$dataProvider=new CActiveDataProvider('Profesional', array(
 					/*'pagination'=>array(
