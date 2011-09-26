@@ -7,7 +7,9 @@
  * @property integer $id
  * @property string $username
  * @property string $password
+ * @property string $salt
  * @property string $email
+ * @property string $profile
  */
 class User extends CActiveRecord
 {
@@ -36,11 +38,12 @@ class User extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('username, password, email', 'required'),
-			array('username, password, email', 'length', 'max'=>128),
+			array('username, password, salt, email', 'required'),
+			array('username, password, salt, email', 'length', 'max'=>128),
+			array('profile', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('id, username, password, email', 'safe', 'on'=>'search'),
+			array('id, username, password, salt, email, profile', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -64,7 +67,9 @@ class User extends CActiveRecord
 			'id' => 'ID',
 			'username' => 'Username',
 			'password' => 'Password',
+			'salt' => 'Salt',
 			'email' => 'Email',
+			'profile' => 'Profile',
 		);
 	}
 
@@ -82,10 +87,41 @@ class User extends CActiveRecord
 		$criteria->compare('id',$this->id);
 		$criteria->compare('username',$this->username,true);
 		$criteria->compare('password',$this->password,true);
+		$criteria->compare('salt',$this->salt,true);
 		$criteria->compare('email',$this->email,true);
+		$criteria->compare('profile',$this->profile,true);
 
 		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
+	}
+	/**
+	 * Checks if the given password is correct.
+	 * @param string the password to be validated
+	 * @return boolean whether the password is valid
+	 */
+	public function validatePassword($password)
+	{
+		return $this->hashPassword($password,$this->salt)===$this->password;
+	}
+
+	/**
+	 * Generates the password hash.
+	 * @param string password
+	 * @param string salt
+	 * @return string hash
+	 */
+	public function hashPassword($password,$salt)
+	{
+		return md5($password);
+	}
+
+	/**
+	 * Generates a salt that can be used to generate a password hash.
+	 * @return string the salt
+	 */
+	protected function generateSalt()
+	{
+		return uniqid('',true);
 	}
 }
