@@ -39,8 +39,6 @@ class Lugaratencion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('lugarid', 'required'),
-			array('lugarid', 'numerical', 'integerOnly'=>true),
 			array('Nombre, Dirección, Fono, email', 'length', 'max'=>150),
 			array('lat, lon', 'length', 'max'=>13),
 			// The following rule is used by search().

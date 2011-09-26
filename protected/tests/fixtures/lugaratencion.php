@@ -3,7 +3,6 @@
 return array(
 	/*
 	'sample1'=>array(
-		'lugarid' => '',
 		'Nombre' => '',
 		'Dirección' => '',
 		'Fono' => '',
@@ -12,7 +11,6 @@ return array(
 		'lon' => '',
 	),
 	'sample2'=>array(
-		'lugarid' => '',
 		'Nombre' => '',
 		'Dirección' => '',
 		'Fono' => '',

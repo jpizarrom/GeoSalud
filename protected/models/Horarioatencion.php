@@ -37,8 +37,7 @@ class Horarioatencion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('id', 'required'),
-			array('id, atencionid, dia', 'numerical', 'integerOnly'=>true),
+			array('atencionid, dia', 'numerical', 'integerOnly'=>true),
 			array('horainicio, horafin', 'safe'),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.

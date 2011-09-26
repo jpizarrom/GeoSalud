@@ -36,8 +36,7 @@ class Atencion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('atencionid', 'required'),
-			array('atencionid, lugarid, profesionalid, evaluacioncosteada', 'numerical', 'integerOnly'=>true),
+			array('lugarid, profesionalid, evaluacioncosteada', 'numerical', 'integerOnly'=>true),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('atencionid, lugarid, profesionalid, evaluacioncosteada', 'safe', 'on'=>'search'),
