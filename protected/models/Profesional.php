@@ -6,6 +6,10 @@
  * The followings are the available columns in table 'profesional':
  * @property integer $id
  * @property string $Nombre
+ *
+ * The followings are the available model relations:
+ * @property Atencion[] $atencions
+ * @property Especialidad[] $especialidads
  */
 class Profesional extends CActiveRecord
 {
@@ -60,7 +64,7 @@ class Profesional extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'Nombre' => 'Nombre',
 		);
 	}
@@ -77,10 +81,9 @@ class Profesional extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-
 		$criteria->compare('Nombre',$this->Nombre,true);
 
-		return new CActiveDataProvider('Profesional', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

@@ -8,6 +8,12 @@
  * @property integer $lugarid
  * @property integer $profesionalid
  * @property integer $evaluacioncosteada
+ *
+ * The followings are the available model relations:
+ * @property Lugaratencion $lugar
+ * @property Profesional $profesional
+ * @property Convenio[] $convenios
+ * @property Horarioatencion[] $horarioatencions
  */
 class Atencion extends CActiveRecord
 {
@@ -83,14 +89,11 @@ class Atencion extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('atencionid',$this->atencionid);
-
 		$criteria->compare('lugarid',$this->lugarid);
-
 		$criteria->compare('profesionalid',$this->profesionalid);
-
 		$criteria->compare('evaluacioncosteada',$this->evaluacioncosteada);
 
-		return new CActiveDataProvider('Atencion', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

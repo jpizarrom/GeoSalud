@@ -6,6 +6,9 @@
  * The followings are the available columns in table 'facilidadpago':
  * @property integer $id
  * @property string $Nombre
+ *
+ * The followings are the available model relations:
+ * @property Lugaratencion[] $lugaratencions
  */
 class Facilidadpago extends CActiveRecord
 {
@@ -49,7 +52,7 @@ class Facilidadpago extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'lugaratencions' => array(self::MANY_MANY, 'Lugaratencion', 'lugar_facilidadpago(lugarid, id)'),
+			'lugaratencions' => array(self::MANY_MANY, 'Lugaratencion', 'lugar_facilidadpago(id, lugarid)'),
 		);
 	}
 
@@ -59,7 +62,7 @@ class Facilidadpago extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'Nombre' => 'Nombre',
 		);
 	}
@@ -76,10 +79,9 @@ class Facilidadpago extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-
 		$criteria->compare('Nombre',$this->Nombre,true);
 
-		return new CActiveDataProvider('Facilidadpago', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

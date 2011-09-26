@@ -9,6 +9,9 @@
  * @property integer $dia
  * @property string $horainicio
  * @property string $horafin
+ *
+ * The followings are the available model relations:
+ * @property Atencion $atencion
  */
 class Horarioatencion extends CActiveRecord
 {
@@ -63,7 +66,7 @@ class Horarioatencion extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'atencionid' => 'Atencionid',
 			'dia' => 'Dia',
 			'horainicio' => 'Horainicio',
@@ -83,16 +86,12 @@ class Horarioatencion extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-
 		$criteria->compare('atencionid',$this->atencionid);
-
 		$criteria->compare('dia',$this->dia);
-
 		$criteria->compare('horainicio',$this->horainicio,true);
-
 		$criteria->compare('horafin',$this->horafin,true);
 
-		return new CActiveDataProvider('Horarioatencion', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

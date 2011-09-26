@@ -11,6 +11,11 @@
  * @property string $email
  * @property string $lat
  * @property string $lon
+ *
+ * The followings are the available model relations:
+ * @property Atencion[] $atencions
+ * @property Caracteristicalugar[] $caracteristicalugars
+ * @property Facilidadpago[] $facilidadpagos
  */
 class Lugaratencion extends CActiveRecord
 {
@@ -89,20 +94,14 @@ class Lugaratencion extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('lugarid',$this->lugarid);
-
 		$criteria->compare('Nombre',$this->Nombre,true);
-
 		$criteria->compare('Dirección',$this->Dirección,true);
-
 		$criteria->compare('Fono',$this->Fono,true);
-
 		$criteria->compare('email',$this->email,true);
-
 		$criteria->compare('lat',$this->lat,true);
-
 		$criteria->compare('lon',$this->lon,true);
 
-		return new CActiveDataProvider('Lugaratencion', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

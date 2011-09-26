@@ -8,6 +8,9 @@
  * @property string $Nombre
  * @property string $Beneficio
  * @property string $Contacto
+ *
+ * The followings are the available model relations:
+ * @property Atencion[] $atencions
  */
 class Convenio extends CActiveRecord
 {
@@ -51,7 +54,7 @@ class Convenio extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'atencions' => array(self::MANY_MANY, 'Atencion', 'atencion_convenio(atencionid, id)'),
+			'atencions' => array(self::MANY_MANY, 'Atencion', 'atencion_convenio(id, atencionid)'),
 		);
 	}
 
@@ -61,7 +64,7 @@ class Convenio extends CActiveRecord
 	public function attributeLabels()
 	{
 		return array(
-			'id' => 'Id',
+			'id' => 'ID',
 			'Nombre' => 'Nombre',
 			'Beneficio' => 'Beneficio',
 			'Contacto' => 'Contacto',
@@ -80,14 +83,11 @@ class Convenio extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('id',$this->id);
-
 		$criteria->compare('Nombre',$this->Nombre,true);
-
 		$criteria->compare('Beneficio',$this->Beneficio,true);
-
 		$criteria->compare('Contacto',$this->Contacto,true);
 
-		return new CActiveDataProvider('Convenio', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}

@@ -6,6 +6,9 @@
  * The followings are the available columns in table 'especialidad':
  * @property integer $especialidadid
  * @property string $Nombre
+ *
+ * The followings are the available model relations:
+ * @property Profesional[] $profesionals
  */
 class Especialidad extends CActiveRecord
 {
@@ -49,7 +52,7 @@ class Especialidad extends CActiveRecord
 		// NOTE: you may need to adjust the relation name and the related
 		// class name for the relations automatically generated below.
 		return array(
-			'profesionals' => array(self::MANY_MANY, 'Profesional', 'profesional_especialidad(id, especialidadid)'),
+			'profesionals' => array(self::MANY_MANY, 'Profesional', 'profesional_especialidad(especialidadid, id)'),
 		);
 	}
 
@@ -76,10 +79,9 @@ class Especialidad extends CActiveRecord
 		$criteria=new CDbCriteria;
 
 		$criteria->compare('especialidadid',$this->especialidadid);
-
 		$criteria->compare('Nombre',$this->Nombre,true);
 
-		return new CActiveDataProvider('Especialidad', array(
+		return new CActiveDataProvider($this, array(
 			'criteria'=>$criteria,
 		));
 	}
