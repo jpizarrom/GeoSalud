@@ -91,4 +91,11 @@ class Convenio extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function getOptions()
+    	{
+		$arr = array(); 
+		foreach($this->findall() as $p)
+			$arr[$p->id] = $p->Nombre; 
+        	return $arr;
+    	}
 }

@@ -17,7 +17,54 @@ class ProfesionalController extends Controller
 		$this->render('index',array('model'=>$model));
 	}
 
-	public function actionIndex2()
+	public function actionView($id)
+	{
+		$this->render('view',array(
+			'model'=>$this->loadModel($id),
+		));
+	}
+
+	public function actionSearch()
+	{
+		$model=new SearchProfesionalForm;
+		$form = new CForm('application.views.profesional.SearchProfesionalForm', $model);
+		
+		if(isset($_POST['SearchProfesionalForm']))
+		    {
+			// collects user input data
+			$model->attributes=$_POST['SearchProfesionalForm'];
+			// validates user input and redirect to previous page if validated
+			if($model->validate()){
+				//echo $model->attributes['profesional'];
+				$keyword = $model->attributes['profesional'];
+				$criteria = new CDbCriteria;
+				//$criteria->condition = "id=1";
+				$criteria->condition = "Nombre LIKE :keyword";
+				$criteria->params = array (	
+					':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+				);
+				//Especialidad::model()->findall();
+				$dataProvider=new CActiveDataProvider('Profesional', array(
+					/*'pagination'=>array(
+						'pageSize'=>Yii::app()->params['postsPerPage'],
+					),*/
+					'criteria'=>$criteria,
+				));
+				//echo $dataProvider->getItemCount();
+				//$this->render('_list',array('model'=>$model, 'form'=>$form));
+				$this->render('_list',array(
+					'dataProvider'=>$dataProvider,
+				));
+				return;
+//			    $this->redirect(Yii::app()->user->returnUrl);
+//			    $this->redirect(array('site/index'));
+//			    $this->redirect(array('view','id'=>$model->profesional));
+			}
+		    }
+
+		$this->render('_form2',array('model'=>$model, 'form'=>$form));
+	}
+	public function actionList()
 	{
 		$model=new SearchProfesionalForm;
 		$form = new CForm('application.views.profesional.SearchProfesionalForm', $model);
@@ -60,4 +107,13 @@ class ProfesionalController extends Controller
 		);
 	}
 	*/
+
+	public function loadModel($id)
+	{
+		$model=Profesional::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
+
 }

@@ -85,7 +85,7 @@ class Especialidad extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
-	public function getEspecialidadesOptions()
+	public function getOptions()
     	{
 		$arr = array(); 
 		foreach($this->findall() as $p)

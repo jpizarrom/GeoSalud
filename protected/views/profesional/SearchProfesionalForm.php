@@ -1,4 +1,7 @@
 <?php
+
+//$data = CHtml::listData(Especialidad::model()->findAll(), 'especialidadid', 'Nombre'));
+
 return array(
 	'title'=>'Please provide your login credential',
 
@@ -9,12 +12,14 @@ return array(
 		),
 		'especialidad'=>array(
 			'type'=>'dropdownlist',
-			'items'=>Especialidad::model()->getEspecialidadesOptions(),
+			'items'=>Especialidad::model()->getOptions(),
+//			'items'=>$data,
 			'prompt'=>'Please select:',
 		),
 		'convenio'=>array(
-			'type'=>'text',
-			'maxlength'=>32,
+			'type'=>'dropdownlist',
+			'items'=>Convenio::model()->getOptions(),
+			'prompt'=>'Please select:',
 		)
 	),
 
