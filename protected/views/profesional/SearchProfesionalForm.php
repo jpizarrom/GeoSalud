@@ -4,16 +4,17 @@ return array(
 
 	'elements'=>array(
 		'profesional'=>array(
-		'type'=>'text',
-		'maxlength'=>32,
+			'type'=>'text',
+			'maxlength'=>32,
 		),
 		'especialidad'=>array(
-		'type'=>'text',
-		'maxlength'=>32,
+			'type'=>'dropdownlist',
+			'items'=>Especialidad::model()->getEspecialidadesOptions(),
+			'prompt'=>'Please select:',
 		),
 		'convenio'=>array(
-		'type'=>'text',
-		'maxlength'=>32,
+			'type'=>'text',
+			'maxlength'=>32,
 		)
 	),
 
