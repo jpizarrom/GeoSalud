@@ -45,7 +45,7 @@ class Lugaratencion extends CActiveRecord
 		// will receive user inputs.
 		return array(
 			array('Nombre, Direccion, Fono, email', 'length', 'max'=>150),
-			array('lat, lon', 'length', 'max'=>13),
+			array('lat, lon', 'length', 'max'=>20),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
 			array('lugarid, Nombre, Direccion, Fono, email, lat, lon', 'safe', 'on'=>'search'),
