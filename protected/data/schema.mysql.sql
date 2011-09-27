@@ -6,3 +6,5 @@ CREATE TABLE user (
 	email VARCHAR(128) NOT NULL,
 	profile TEXT
 );
+
+INSERT INTO `user` (`id`, `username`, `password`, `salt`, `email`, `profile`) VALUES (1, 'admin', '1ed85e5377b8f00eec6512a288012987', '', '', NULL);
