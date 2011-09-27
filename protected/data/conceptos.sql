@@ -52,7 +52,7 @@ create table convenio (
 create table lugaratencion (
    lugarid   int     auto_increment       not null,
    Nombre    varchar(150)           ,
-   Dirección varchar(150)           ,
+   Direccion varchar(150)           ,
    Fono      varchar(150)           ,
    email     varchar(150)           ,
    lat       decimal(13,10)         ,
