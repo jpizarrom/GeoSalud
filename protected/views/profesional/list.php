@@ -20,6 +20,8 @@ $this->menu=array(
 
 <div class="content-l floatleft">
 <?php $this->widget('zii.widgets.CListView', array(
+	'cssFile' => Yii::app()->baseUrl . '/css/listview/styles.css',
+	//'itemsCssClass'=> '',
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
