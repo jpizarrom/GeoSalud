@@ -89,17 +89,24 @@ class ProfesionalController extends Controller
 				$criteria->condition = '';
 				$criteria->params = array ();
 
+				$criteria->with[] = 'atencions';
+				$criteria->condition .= "atencions.profesionalid is not null";
+				
 				if (!empty($model->attributes['especialidad']) ){
+					if (!empty($criteria->condition) )
+						$criteria->condition .= " and ";
 					$criteria->with[] = 'especialidads';
-					$criteria->condition .= " especialidads.especialidadid=:especialidad";
+					$criteria->condition .= "especialidads.especialidadid=:especialidad";
 					//$criteria->condition = "id=1";
 					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
 					$criteria->params [':especialidad']=$model->attributes['especialidad'];
 				}
-				if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) )
-					$criteria->condition .= " and ";
+				/*if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) )
+					$criteria->condition .= " and ";*/
 
 				if (!empty($model->attributes['convenio']) ){
+					if (!empty($criteria->condition) )
+						$criteria->condition .= " and ";
 					$criteria->with[] = 'atencions.convenios';
 					$criteria->condition .= " convenios.id=:convenio";
 					$criteria->params [':convenio']=$model->attributes['convenio'];
