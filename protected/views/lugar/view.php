@@ -4,9 +4,13 @@ $this->breadcrumbs=array(
 //	'View',
 	$model->Nombre,
 );?>
+<div class="widget_middle style1Frame">
+<div id="content_top">
+	<div class="title_content_top">
+		<h1 class="h1Search"><?php echo $model->Nombre; ?></h1>
+	</div>
 
-
-<div class="content-l">
+<div class="content-l floatleft">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
@@ -21,7 +25,7 @@ $this->breadcrumbs=array(
 )); ?>
 </div>
 
-<div class="content-r">
+<div class="content-r floatright">
 <?php
 
 // import the library
@@ -45,4 +49,8 @@ $gMap->setCenter(-35.422753, -71.657266);
 //$gMap->zoomOnMarkers();
 $gMap->renderMap();
 ?>
+</div>
+
+</div>
+
 </div>
