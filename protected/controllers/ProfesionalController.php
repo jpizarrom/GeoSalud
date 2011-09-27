@@ -28,6 +28,13 @@ class ProfesionalController extends Controller
 		));
 	}
 
+	public function actionMap()
+	{
+		//$this->redirect(array('search'));
+
+		$this->render('map');
+	}
+
 	public function actionSearch()
 	{
 		$model=new SearchProfesionalForm;
