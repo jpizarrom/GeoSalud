@@ -2,13 +2,18 @@
 /**
  * EGMapDirection class
  * 
- * @author Antonio Ramirez Cobos
- * @link www.ramirezcobos.com
+ * Modified by Antonio Ramirez
+ * @since 2010-12-22
+ * @link http://www.ramirezcobos.com
  *
+ * @author Vincent Guillon <vincentg@theodo.fr>
+ * @since 2009-10-30 17:18:26
  * 
+  * 
  * @copyright 
+ * info as this library is a modified version of the library made by Fabrice Bernhard 
  * 
- * Copyright (c) 2010 Antonio Ramirez Cobos
+ * Copyright (c) 2008 Fabrice Bernhard
  * Permission is hereby granted, free of charge, to any person obtaining a copy of this software 
  * and associated documentation files (the "Software"), to deal in the Software without restriction, 
  * including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
@@ -24,146 +29,282 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-class EGMapDirection extends EGMapBase  
+class EGMapDirection 
 {  
-	const TRAVEL_MODE_DRIVING 		= 'google.maps.DirectionsTravelMode.DRIVING';
-	const TRAVEL_MODE_WALKING 		= 'google.maps.DirectionsTravelMode.WALKING';
-	const TRAVEL_MODE_BICYCLING 	= 'google.maps.DirectionsTravelMode.BICYCLING';
-	
-	const UNIT_SYSTEM_IMPERIAL 	= 'google.maps.DirectionsUnitSystem.IMPERIAL';
-	const UNIT_SYSTEM_METRIC	= 'google.maps.DirectionsUnitSystem.METRIC';
-	
-	protected $renderer = null;
-  	
+	private static $_counter = 0;
+  	protected $origin;
+  	protected $destination;
+  	protected $travel_mode;
+  	protected $js_name;
   	protected $options = array(
 	    // Whether or not trip alternatives should be provided.
-	    'avoidHighways' => null,
-  		// If true, instructs the Directions service to avoids toll roads where possible. Optional.
-	    'avoidTolls' => null,
-  		// Location of destination. This can be specified as either a string to be geocoded or a LatLng. Required.
-  		'destination' => null,
-  		// If set to true, the DirectionService will attempt to re-order the supplied intermediate waypoints to 
-  		// minimize overall cost of the route. If waypoints are optimized, inspect DirectionsRoute.waypoint_order 
-  		// in the response to determine the new ordering.
-  		'optimizeWaypoints' => null,
-  		// Location of origin. This can be specified as either a string to be geocoded or a LatLng. Required.
-  		'origin' => null,
-  		// Whether or not route alternatives should be provided. Optional.
-  		'provideRouteAlternatives'=>null,
+	    'provideTripAlternatives' => false,
+	    
 	    // Region code used as a bias for geocoding requests.
 	    'region'     => null,
-	    // Travel mode [DRIVING, WALKING, BICYCLING]
-	    'travelMode' => self::TRAVEL_MODE_WALKING,
-		// Preferred unit system to use when displaying distance. 
-		// Defaults to the unit system used in the country of origin.
+	    
+	    /**
+	     * Preferred unit system to use when displaying distance.
+	     * Defaults to the unit system used in the country of origin [IMPERIAL or METRIC]
+	     */
 	    'unitSystem' => null,
+	    
 	    // Array of intermediate waypoints. Directions will be calculated from the origin to the destination by way of each waypoint in this array.
 	    'waypoints'  => array(),
+	    
+	    // Travel mode [DRIVING, WALKING]
+	    'travelMode' => 'DRIVING',
+	    
+	    // Node
+	    'panel'      => null,
   	);
   
+  protected $prefix_list = array(
+    'unitSystem' => 'google.maps.DirectionsUnitSystem.',
+    'travelMode' => 'google.maps.DirectionsTravelMode.'
+  );
   
-  	/**
-   	* Construct GMapDirection object
-   	*
-   	* @param EGMapCoord $origin The coordinates of origin
-   	* @param EGMapCoord $destination The coordinates of destination
-   	* @param string $js_name The js var name
-   	* @param array $options Array of option
-   	* @author Vincent Guillon <vincentg@theodo.fr>
-   	* @since 2009-10-30 17:20:47
-   	* @since 2011-01-24 by Antonio Ramirez www.ramirezcobos.com
-   	* 		New algorithms
-   	* 
-   	*/
-  	public function __construct(EGMapCoord $origin, EGMapCoord $destination, $js_name = 'gmap_direction', $options = array())
-  	{
+  /**
+   * Construct GMapDirection object
+   *
+   * @param EGMapCoord $origin The coordinates of origin
+   * @param EGMapCoord $destination The coordinates of destination
+   * @param string $js_name The js var name
+   * @param array $options Array of options
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:20:47
+   */
+  public function __construct($origin = null, $destination = null, $js_name = 'gmap_direction', $options = array())
+  {
+    $default_options  = array(
+      'travelMode' => 'DRIVING',
+    );
     
-    	$this->origin = $origin;
-    	$this->destination = $destination;
-    	$this->setOptions(array_merge($this->options, $options));
-    	if($js_name !== 'gmap_direction')
-    	$this->setJsName($js_name);
-  	}
+    $this->setOrigin($origin);
+    $this->setDestination($destination);
+    $this->setOptions(array_merge($default_options, $options));
+    $this->setJsName(($js_name ==='gmap_direction'?$js_name.(self::$_counter++):$js_name));
+  }
   
-  	public function setRenderer( EGMapDirectionRenderer $renderer){
-  		$this->renderer = $renderer;
-  	}
-  	public function setOrigin( EGMapCoord $origin ){
-  		$this->options['origin'] = $origin;
-  	}
-  	public function setDestination( EGMapCoord $destination ){
-  		$this->options['destination'] = $destination;
-  	}
-  
-  	/**
-   	* Options setter
-   	*
-   	* @param array $options
-   	* @author Vincent Guillon <vincentg@theodo.fr>
-   	* @since 2009-11-13 15:39:46
-   	* @since 2011-01-24 by Antonio Ramirez
-   	* 		 Modified algorithm
-   	*/
-  	public function setOptions($options = null)
-  	{
-  		if(isset($options['origin'])){
-  			$this->setOrigin($options['origin']);
-  			unset($options['origin']);
-  		}
-  		if(isset($options['destination'])){
-  			$this->setDestination($options['destination']);
-  			unset($options['destination']);
-  		}
-    	$this->options = array_merge($this->options, $options);
-  	}
-	/**
-   	* Options getter
-   	*
-   	* @return array $this->options 
-   	* @author Vincent Guillon <vincentg@theodo.fr>
-   	* @since 2009-11-13 15:38:46
-   	*/
-  	public function getOptions()
-  	{
-    	return $this->options;
-  	}
-  
-  	/**
-   	* Generate js code for direction
-   	* Inspired by the work of Vincent Guillon <vincentg@theodo.fr>
-   	* 
-   	* @param string $map_js_name The google map js var name
-   	* @return $js_code The generated js to display direction
-   	* @author Antonio Ramirez
-   	* @since 2010-01-24
-   	* 
-   	*/
-  	public function toJs($map_js_name = 'map')
-  	{
-		if(null === $this->renderer )
-			throw new CException(Yii::t('EGMap', 'No Renderer Service has been provided'));
-			
-    	$options = $this->getOptions();
-    	$js_name = $this->getJsName();
-    	
-    	// set map to renderer
-		$this->renderer->map = $map_js_name;    
-		
-    	// Construct js code
-    	$js_code = '';
-    	$js_code .= $this->renderer->toJs();
-    	$js_code .= 'var '.$js_name.' = new google.maps.DirectionsService();'."\n";
-    	
-    	// building Request
-    	$js_code .= 'var '.$js_name.'Request = '.EGMap::encode($this->options).';'."\n";
+  /**
+   * Origin getter
+   *
+   * @return EGMapCoord $this->origin
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:23:11
+   */
+  public function getOrigin()
+  {
     
-    	$js_code .= $js_name.'.route('.$js_name.'Request, function(response, status)'."\n";
-    	$js_code .= '{'."\n";
-    	$js_code .= '  if (status == google.maps.DirectionsStatus.OK)'."\n";
-    	$js_code .= '  {'."\n";
-    	$js_code .= '    '.$this->renderer->getJsName().'.setDirections(response);'."\n";
-    	$js_code .= '  }'."\n";
-    	$js_code .= '});'."\n";
+    return $this->origin;
+  }
+  
+  /**
+   * Destination getter
+   *
+   * @return EGMapCoord $this->destination
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:23:30
+   */
+  public function getDestination()
+  {
+    
+    return $this->destination;
+  }
+  
+  /**
+   * Options getter
+   *
+   * @return array $this->options 
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:38:46
+   */
+  public function getOptions()
+  {
+    
+    return $this->options;
+  }
+  
+  /**
+   * Retrieve option from options list by index
+   *
+   * @param string $name 
+   * @return $this->options[$index]
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:52:55
+   */
+  public function getOption($name = null)
+  {
+    if (is_null($name))
+    {
+      throw new CException(Yii::t('EGMap','$name can\'t be "null" !'));
+    }
+    
+    return $this->options[$name];
+  }
+  
+  /**
+   * js_name getter
+   *
+   * @return string $this->js_name
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:50:22
+   */
+  public function getJsName()
+  {
+    
+    return $this->js_name;
+  }
+  
+  /**
+   * Origin setter
+   *
+   * @param EGMapCoord $origin
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:25:39
+   */
+  public function setOrigin($origin = null)
+  {
+    if (!$origin instanceof EGMapCoord)
+    {
+      throw new CException(Yii::t('EGMap','The origin must be an instance of EGMapCoord !'));
+    }
+    
+    $this->origin = $origin;
+  }
+  
+  /**
+   * Destination setter
+   *
+   * @param EGMapCoord $destination
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-10-30 17:26:17
+   * @since 2010-12-22 modified by Antonio Ramirez
+   */
+  public function setDestination($destination = null)
+  {
+    if (!$destination instanceof EGMapCoord)
+    {
+      throw new CException(Yii::t('EGMap','The destination must be an instance of EGMapCoord !'));
+    }
+    
+    $this->destination = $destination;
+  }
+  
+  /**
+   * Options setter
+   *
+   * @param array $options
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:39:46
+   */
+  public function setOptions($options = null)
+  {
+    $this->options = $options;
+  }
+  
+  /**
+   * Option setter
+   *
+   * @param $name The index
+   * @param $value The option
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:56:51
+   * @since 2010-12-22 modified by Antonio Ramirez
+   */
+  public function setOption($name, $value = null)
+  {
+    $this->option[$name] = $value;
+  }
+  
+  /**
+   * js_name setter
+   *
+   * @param string $js_name
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 15:51:57
+   */
+  public function setJsName($js_name = 'gmap_direction')
+  {
+    $this->js_name = $js_name;
+  }
+  
+  /**
+   * Return refix by option
+   *
+   * @param string $option
+   * @return string
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-20 15:42:10
+   */
+  public function getOptionPrefix($option = '')
+  {
+    
+    return isset($this->prefix_list[$option]) ? $this->prefix_list[$option] : '';
+  }
+  
+  /**
+   * Generate js code for direction
+   *
+   * @param string $map_js_name The google map js var name
+   * @return $js_code The generated js to display direction
+   * @author Vincent Guillon <vincentg@theodo.fr>
+   * @since 2009-11-13 16:23:02
+   */
+  public function toJs($map_js_name = 'map')
+  {
+    $options = $this->getOptions();
+    $js_name = $this->getJsName();
+    
+    // Construct js code
+    $js_code = '';
+    $js_code .= 'var '.$js_name.'Renderer = new google.maps.DirectionsRenderer();'."\n";
+    $js_code .= 'var '.$js_name.'Service = new google.maps.DirectionsService();'."\n";
+    $js_code .= $js_name.'Renderer.setMap('.$map_js_name.');'."\n";
+    
+    // Display direction panel
+    if (isset($options['panel']) && $options['panel'])
+    {
+       $js_code .= $js_name.'Renderer.setPanel('.$options['panel'].');'."\n\n";
+       unset($options['panel']);
+    }
+    
+    $js_code .= 'var '.$js_name.'Request = {'."\n";
+    $js_code .= '  origin: '.$this->getOrigin()->toJs().','."\n";
+    $js_code .= '  destination: '.$this->getDestination()->toJs().','."\n";    
+    
+    // Add options
+    foreach ($options as $name => $option)
+    {
+      if ($name == 'waypoints' && count($option) > 0)
+      {
+        $js_code .= '  '.$name.' : ['."\n";
+        
+        foreach ($option as $waypoint)
+        {
+          if ($waypoint instanceof EGMapDirectionWaypoint)
+          {
+            $js_code .= '    '.$waypoint->optionsToJs().",\n";
+          }
+        }
+                
+        $js_code .= '  ],'."\n";
+      }
+      else
+      {
+        $js_code .= '  '.$name.' : '.$this->getOptionPrefix($name).$option.",\n";
+      }
+    }
+    
+    $js_code .= '};'."\n";
+    
+    $js_code .= $js_name.'Service.route('.$js_name.'Request, function(response, status)'."\n";
+    $js_code .= '{'."\n";
+    $js_code .= '  if (status == google.maps.DirectionsStatus.OK)'."\n";
+    $js_code .= '  {'."\n";
+    $js_code .= '    '.$js_name.'Renderer.setDirections(response);'."\n";
+    $js_code .= '  }'."\n";
+    $js_code .= '});'."\n";
     
     return $js_code;
   }

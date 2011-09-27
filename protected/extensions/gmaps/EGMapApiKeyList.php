@@ -1,8 +1,6 @@
 <?php
 /**
  * 
- * EGMapApiKeyList Class 
- * 
  * Collection of Google API Keys
  *
  * @author Antonio Ramirez Cobos

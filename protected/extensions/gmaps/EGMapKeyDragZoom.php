@@ -27,7 +27,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-class EGMapKeyDragZoom extends EGMapBase
+class EGMapKeyDragZoom
 {
 	/**
 	 * 
@@ -97,6 +97,19 @@ class EGMapKeyDragZoom extends EGMapBase
 	 * @var array
 	 */
 	protected $events = array();
+	/**
+	 * 
+	 * JavaScript variable name
+	 * @var string
+	 */
+	private $_jsName;
+	/**
+	 * 
+	 * Static counter to avoid
+	 * name conflict with multiple maps
+	 * @var integer
+	 */
+	private static $_counter = 0;
 	
 	/**
 	 * 
@@ -107,6 +120,28 @@ class EGMapKeyDragZoom extends EGMapBase
 	{
 		$this->setOptions($options);
 	}
+	/**
+   	* @return string Javascript name of the googlemap
+   	* @author Antonio Ramirez
+   	*/
+  	public function getJsName($autoGenerate=true)
+  	{
+  		if($this->_jsName!==null)
+			return $this->_jsName;
+		else if($autoGenerate)
+			return $this->_jsName='dz_'.self::$_counter++;
+    
+  	}
+	/**
+  	 * 
+  	 * Sets Javascript variable name
+  	 * @param string $name
+  	 */
+  	public function setJsName( $name ){
+  		$this->removeGlobalVariable( $this->getJsName() );
+  		$this->_jsName = $name;
+  		$this->addGlobalVariable($this->_jsName);
+  	}
   	/**
   	 * 
   	 * Sets plugin options
@@ -119,23 +154,6 @@ class EGMapKeyDragZoom extends EGMapBase
 		$this->options = CMap::mergeArray($this->options, $options);
 		
 	}
-	public function setVeilStyle( $options ){
-		if(!is_array($options))
-			throw new CException(Yii::t('EGMap', 'Property "{class}.{property}" {e}.',
-				array('{class}'=>get_class($this), '{property}'=>'veilStyle','{e}'=>'must be of type array')));
-	}
-	public function setBoxStyle( $options ){
-		if(!is_array($options))
-			throw new CException(Yii::t('EGMap', 'Property "{class}.{property}" {e}.',
-				array('{class}'=>get_class($this), '{property}'=>'boxStyle','{e}'=>'must be of type array')));
-	}
-	public function setVisualSize( EGMapSize $size ){
-		$this->options['visualSize'] = $size;
-	}
-	public function setVisualPositionOffset( EGMapSize $offset ){
-		$this->options['visualPositionOffset'] = $offset;
-	}
-	
 	/**
 	 * 
 	 * Adds an event to the plugin
@@ -161,9 +179,6 @@ class EGMapKeyDragZoom extends EGMapBase
 	 */
 	public function toJs( $map_js_name = 'map' )
 	{
-		foreach(array('veilStyle','boxStyle','visualClass','visualType') as $key)
-			if(isset($this->options[$key])) $this->options[$key] = CJavaScript::encode($this->options[$key]);
-			
 		$return = $map_js_name.'.enableKeyDragZoom('.EGMap::encode($this->options).');';
 		
 		if (count($this->events)){

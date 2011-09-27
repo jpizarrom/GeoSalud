@@ -365,7 +365,6 @@ class EGMapBounds
   * @return EGMapBounds
   * @author fabriceb
   * @since 2009-05-02
-  * @since 2011-01-25 modified by Antonio Ramirez
   *
   **/
   public static function getBoundsContainingMarkers($markers, $margin = 0)
@@ -373,7 +372,7 @@ class EGMapBounds
     $coords = array();
     foreach($markers as $marker)
     {
-      array_push($coords, $marker->position);
+      array_push($coords, $marker->getGMapCoord());
     }
    
     return EGMapBounds::getBoundsContainingCoords($coords, $margin);

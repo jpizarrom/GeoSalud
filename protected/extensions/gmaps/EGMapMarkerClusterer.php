@@ -27,7 +27,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-class EGMapMarkerClusterer extends EGMapBase 
+class EGMapMarkerClusterer
 {
 	
 	protected $options = array(
@@ -61,6 +61,19 @@ class EGMapMarkerClusterer extends EGMapBase
 	 * @var array
 	 */
 	protected $markers;
+	/**
+	 * 
+	 * Javascript variable name
+	 * @var string
+	 */
+	private $_jsName;
+	/**
+	 * 
+	 * Static counter for multiple naming
+	 * x multiple maps support
+	 * @var integer
+	 */
+	private static $_counter = 0;
 	
 	/**
 	 * 
@@ -73,7 +86,26 @@ class EGMapMarkerClusterer extends EGMapBase
 		
 		$this->setOptions($options);
 	}
-	
+	/**
+   	* @return string Javascript name of the marker clusterer
+   	* @author Antonio Ramirez
+   	*/
+  	public function getJsName($autoGenerate=true)
+  	{
+  		if($this->_jsName!==null)
+			return $this->_jsName;
+		else if($autoGenerate)
+			return $this->_jsName='mmgr_'.self::$_counter++;
+    
+  	}
+  	/**
+  	 * 
+  	 * Sets Javascript variable name
+  	 * @param string $name
+  	 */
+  	public function setJsName( $name ){
+  		$this->_jsName = $name;
+  	}
   	/**
   	 * 
   	 * Sets plugin options
@@ -83,11 +115,17 @@ class EGMapMarkerClusterer extends EGMapBase
 	public function setOptions( $options ){
 		if(!is_array( $options )) 
 			throw new CException( Yii::t('EGMap', 'EGMapMarkerClusterer options must be of type array!'));
-		if(isset($options['styles'])){
-  			$this->setStyles($options['styles']);
-  			unset($options['styles']);
-  		}
-		$this->options = array_merge($this->options, $options);
+		$this->options = CMap::mergeArray($this->options, $options);
+	}
+	/**
+	 * 
+	 * Returns value of option
+	 * @param string $name option
+	 * @return mixed option value
+	 */
+	public function getOption( $name ){
+		if(isset($this->options[$name]))
+			return $this->options[$name];
 	}
 	/**
 	 * 
@@ -95,8 +133,11 @@ class EGMapMarkerClusterer extends EGMapBase
 	 * @param string $name option
 	 * @param mixed $value
 	 */
-	public function setStyles( $value ){
-		$this->options['styles'] = CJavaScript::encode($value);
+	public function setOption( $name, $value ){
+		if(isset($this->options[$name])){
+			if($name === 'styles') $value = CJavaScript::encode($value);
+			$this->options[$name] = $value;
+		}
 	}
 	/**
 	 * 
@@ -104,8 +145,7 @@ class EGMapMarkerClusterer extends EGMapBase
 	 * @param EGMapMarker $marker
 	 */
 	public function addMarker( EGMapMarker $marker){
-		
-		$this->markers->add($marker->getJsName(), $marker);
+		$this->markers->add($marker->getName(), $marker);
 	}
 	
 	/**
@@ -116,7 +156,7 @@ class EGMapMarkerClusterer extends EGMapBase
 		$markers = array();
 		if(count($this->markers)){
 			foreach($this->markers as $m)
-				$markers[] = $m->getJsName();
+				$markers[] = $m->getName();
 		}
 		$return = 'var '.$this->getJsName().'= new MarkerClusterer('.$map_js_name.','.EGMap::encode($markers).','.EGMap::encode($this->options).');';
 		

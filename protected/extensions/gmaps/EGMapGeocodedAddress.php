@@ -106,7 +106,7 @@ class EGMapGeocodedAddress
 
       return false;
     }
-    
+
     $this->raw_address           = $geocoded_array['Placemark'][0]['address'];
     $this->accuracy              = $geocoded_array['Placemark'][0]['AddressDetails']['Accuracy'];
     $this->geocoded_city         = $geocoded_array['Placemark'][0]['AddressDetails']['Country']['AdministrativeArea']['SubAdministrativeArea']['Locality']['LocalityName'];

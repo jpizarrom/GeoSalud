@@ -74,13 +74,11 @@ class EGMapMarkerWithLabel extends EGMapMarker{
    	* @param  EGmapEvent[] array of GoogleMap Events linked to the marker
    	* @author Antonio Ramirez
    	*/
-  	public function __construct( $lat, $lng, $options = array(), $js_name='marker',$events=array() )
+  	public function __construct($lat,$lng,$options = array(),$js_name='marker',$events=array())
   	{
     	$this->marker_object = 'MarkerWithLabel';	
     	
-    	$options = array_merge($this->label_options, $this->encodeOptions($options));
-    	
-    	parent::__construct( $lat, $lng, $options, $js_name, $events );
+    	parent::__construct( $lat, $lng, array_merge($this->label_options, $this->encodeOptions($options)),$js_name, $events );
     	
   	}
   	/**
@@ -132,15 +130,33 @@ class EGMapMarkerWithLabel extends EGMapMarker{
   		parent::setOptions( $this->encodeOptions($options) );
   	}
   	/**
+  	 * (non-PHPdoc)
+  	 * @see EGMapMarker::setOption()
+  	 */
+  	public function setOption( $name, $value ){
+  		
+  		if($name == 'labelContent'){
+  			$this->setLabelContent( $value );
+  		}
+  		else if($name == 'labelClass')
+  			$this->setLabelClass( $value );
+  		else if($name == 'labelAnchor'){
+  			$this->setLabelAnchor( $value );
+  		}
+  		else if($name == 'labelStyle'){
+  			$this->setLabelStyle( $value );
+  		}else 
+  			parent::setOption($name, $value);
+  	}
+  	/**
   	 * 
   	 * Encodes options appropiatelly
   	 * @param array $options
   	 */
   	private function encodeOptions( $options ){
-  		if(!is_array( $options )) 
-			throw new CException( Yii::t('EGMap', 'EGMapMarkerWithLabel.encodeOptions parameter must be of type array!'));
-		foreach(array('labelContent', 'labelClass', 'labelStyle') as $key )
-    		if(isset($options[$key])) 	$options[$key] 	= CJavaScript::encode($options[$key]);
+  		if(isset($options['labelContent'])) $options['labelContent'] 	= '"'.$options['labelContent'].'"';
+    	if(isset($options['labelClass'])) 	$options['labelClass'] 		= '"'.$options['labelClass'].'"';
+    	if(isset($options['labelStyle'])) 	$options['labelStyle'] 		= CJavaScript::encode($options['labelStyle']);
     	
     	return $options;
   	}
