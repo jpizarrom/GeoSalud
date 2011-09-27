@@ -6,7 +6,14 @@ class Profesional_especialidadController extends Controller
 	
 	public function actionAdmin()
 	{
-		$this->render('admin');
+		$model=new ProfesionalEspecialidad('search');
+		$model->unsetAttributes();  // clear any default values
+		if(isset($_GET['ProfesionalEspecialidad']))
+			$model->attributes=$_GET['ProfesionalEspecialidad'];
+
+		$this->render('admin',array(
+			'model'=>$model,
+		));
 	}
 
 	public function actionCreate()
@@ -43,6 +50,21 @@ class Profesional_especialidadController extends Controller
 		$this->render('view');
 	}
 
+	public function actionDelete($id, $especialidadid)
+	{
+		if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id, $especialidadid)->delete();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		else
+			throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
@@ -69,4 +91,12 @@ class Profesional_especialidadController extends Controller
 		);
 	}
 	*/
+	public function loadModel($id, $especialidadid)
+	{
+		$model=ProfesionalEspecialidad::model()->findByPk( array('id'=>$id, 'especialidadid'=>$especialidadid) );
+
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
 }

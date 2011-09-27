@@ -14,19 +14,19 @@ return array(
 			'type'=>'dropdownlist',
 			'items'=>Especialidad::model()->getOptions(),
 //			'items'=>$data,
-			'prompt'=>'Please select:',
+			'prompt'=>'Selecione:',
 		),
 		'convenio'=>array(
 			'type'=>'dropdownlist',
 			'items'=>Convenio::model()->getOptions(),
-			'prompt'=>'Please select:',
+			'prompt'=>'Selecione:',
 		)
 	),
 
 	'buttons'=>array(
 		'find'=>array(
 		'type'=>'submit',
-		'label'=>'Find',
+		'label'=>'Buscar',
 		),
 	),
 );

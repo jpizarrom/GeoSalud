@@ -4,14 +4,28 @@ $this->breadcrumbs=array(
 	'Admin',
 );
 $this->menu=array(
+	array('label'=>'List Atencion', 'url'=>array('index')),
 	array('label'=>'Create Atencion', 'url'=>array('create')),
-	array('label'=>'Manage Atencion', 'url'=>array('admin')),
 );
 ?>
 
-<h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
+<h1>Manage Profesional Especialidad</h1>
 
-<p>
-	You may change the content of this page by modifying
-	the file <tt><?php echo __FILE__; ?></tt>.
-</p>
+<?php $this->widget('zii.widgets.grid.CGridView', array(
+	'id'=>'atencion-grid',
+	'dataProvider'=>$model->search(),
+	'filter'=>$model,
+	'columns'=>array(
+		'id',
+		'especialidadid',
+		/*array(
+			'class'=>'CButtonColumn',
+		),*/
+		array(
+			'class'=>'CButtonColumn',
+			'viewButtonUrl'=>'Yii::app()->createUrl("/controllername/view", array("id" => $data["id"]))',
+			'deleteButtonUrl'=>'Yii::app()->createUrl("/admin/profesional_especialidad/delete", array("id" =>  $data["id"], "especialidadid" =>  $data["especialidadid"] ))',
+			'updateButtonUrl'=>'Yii::app()->createUrl("/controllername/update", array("id" =>  $data["id"]))',
+		),
+	),
+)); ?>
