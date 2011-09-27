@@ -33,7 +33,13 @@
 				<div class="floatleft">
 					<div class="_BreadCrumb menuBreadCrumb">
 						<div>
-							<a title="Home!!" class="BreadCrumbSelected">Inicio</a>
+							<!--<a title="Home!!" class="BreadCrumbSelected">Inicio</a>-->
+							<?php if(isset($this->breadcrumbs)):?>
+								<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+									'links'=>$this->breadcrumbs,
+									'htmlOptions'=>array('class'=>'BreadCrumbSelected'),
+								)); ?><!-- breadcrumbs -->
+							<?php endif?>
 						</div>
 					</div>
 				</div>
