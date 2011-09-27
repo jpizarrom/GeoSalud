@@ -85,50 +85,24 @@ class ProfesionalController extends Controller
 				$keyword = $model->attributes['profesional'];
 				$criteria = new CDbCriteria;
 				$criteria->together = true;
+				$criteria->with=array();
+				$criteria->condition = '';
+				$criteria->params = array ();
 
-				if (!empty($model->attributes['especialidad']) and empty($model->attributes['convenio']) ){
-					$criteria->with=array(
-					    'especialidads',
-					);
-
-					echo $model->attributes['especialidad'];
-					$criteria->condition = "especialidads.especialidadid=:especialidad";
+				if (!empty($model->attributes['especialidad']) ){
+					$criteria->with[] = 'especialidads';
+					$criteria->condition .= " especialidads.especialidadid=:especialidad";
 					//$criteria->condition = "id=1";
 					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
-					$criteria->params = array (	
-						//':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
-						':especialidad'=>$model->attributes['especialidad'],
-					);
+					$criteria->params [':especialidad']=$model->attributes['especialidad'];
 				}
-				if (empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) ){
-					$criteria->with=array(
-					    'atencions.convenios',
-					);
+				if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) )
+					$criteria->condition .= " and ";
 
-					echo $model->attributes['convenio'];
-					$criteria->condition = "convenios.id=:convenio";
-					//$criteria->condition = "id=1";
-					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
-					$criteria->params = array (	
-						//':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
-						':convenio'=>$model->attributes['convenio'],
-					);
-				}
-				if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) ){
-					$criteria->with=array(
-					    'especialidads',
-					    'atencions.convenios',
-					);
-
-					echo $model->attributes['convenio'];
-					$criteria->condition = "convenios.id=:convenio and especialidads.especialidadid=:especialidad";
-					//$criteria->condition = "id=1";
-					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
-					$criteria->params = array (	
-						//':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
-						':convenio'=>$model->attributes['convenio'],
-						':especialidad'=>$model->attributes['especialidad'],
-					);
+				if (!empty($model->attributes['convenio']) ){
+					$criteria->with[] = 'atencions.convenios';
+					$criteria->condition .= " convenios.id=:convenio";
+					$criteria->params [':convenio']=$model->attributes['convenio'];
 				}
 				if (!empty($keyword))
 					$criteria->addSearchCondition('t.Nombre',$keyword);
