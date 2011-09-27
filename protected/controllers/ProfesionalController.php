@@ -86,10 +86,7 @@ class ProfesionalController extends Controller
 				$criteria = new CDbCriteria;
 				$criteria->together = true;
 
-				if (!empty($keyword))
-					$criteria->addSearchCondition('Nombre',$keyword);
-
-				if (!empty($model->attributes['especialidad'])){
+				if (!empty($model->attributes['especialidad']) and empty($model->attributes['convenio']) ){
 					$criteria->with=array(
 					    'especialidads',
 					);
@@ -103,7 +100,7 @@ class ProfesionalController extends Controller
 						':especialidad'=>$model->attributes['especialidad'],
 					);
 				}
-				if (!empty($model->attributes['convenio'])){
+				if (empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) ){
 					$criteria->with=array(
 					    'atencions.convenios',
 					);
@@ -117,6 +114,24 @@ class ProfesionalController extends Controller
 						':convenio'=>$model->attributes['convenio'],
 					);
 				}
+				if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) ){
+					$criteria->with=array(
+					    'especialidads',
+					    'atencions.convenios',
+					);
+
+					echo $model->attributes['convenio'];
+					$criteria->condition = "convenios.id=:convenio and especialidads.especialidadid=:especialidad";
+					//$criteria->condition = "id=1";
+					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
+					$criteria->params = array (	
+						//':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
+						':convenio'=>$model->attributes['convenio'],
+						':especialidad'=>$model->attributes['especialidad'],
+					);
+				}
+				if (!empty($keyword))
+					$criteria->addSearchCondition('t.Nombre',$keyword);
 				/*$criteria->with=array(
 				    //'atencions',
 				    'especialidads',
