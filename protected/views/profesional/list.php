@@ -12,14 +12,16 @@ $this->menu=array(
 );
 ?>
 
-<div class="content-l">
+<div class="widget_middle style1Frame">
+
+<div class="content-l" style="float:left;">
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
 </div>
 
-<div class="content-r">
+<div class="content-r" style="float:right;">
 <?php
 
 // import the library
@@ -60,4 +62,6 @@ foreach($prof->atencions as $atencion){
 
 $gMap->renderMap();
 ?>
+</div>
+
 </div>
