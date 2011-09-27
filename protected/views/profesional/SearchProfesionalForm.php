@@ -4,7 +4,8 @@
 
 return array(
 	//'title'=>'Please provide your login credential',
-
+	//'id'=>'search_box',
+	'class'=>'search_form input-area',
 	'elements'=>array(
 		'profesional'=>array(
 			'label'=>false,
@@ -34,6 +35,7 @@ return array(
 		'find'=>array(
 		'type'=>'submit',
 		'label'=>'Buscar',
+		'class'=>'btn_large',
 		),
 	),
 );
