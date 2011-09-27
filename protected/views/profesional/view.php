@@ -15,7 +15,7 @@ $this->menu=array(
 <div class="widget_middle style1Frame">
 <div id="content_top">
 	<div class="title_content_top">
-		<h1 class="h1Search">Buscar!!</h1>
+		<h1 class="h1Search"><?php echo $model->Nombre; ?></h1>
 	</div>
 
 <div class="content-l floatleft">
@@ -26,10 +26,9 @@ $this->menu=array(
 		'id',
 		'Nombre',
 	),
-	'itemView'=>'_view',
 )); ?>
 <?php $this->widget('zii.widgets.CListView', array(
-	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
+	'cssFile' => Yii::app()->baseUrl . '/css/listview/styles.css',
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view_atencion',
 )); ?>
