@@ -12,6 +12,13 @@ $this->menu=array(
 );
 ?>
 
+<?php $this->widget('zii.widgets.CDetailView', array(
+	'data'=>$model,
+	'attributes'=>array(
+		'id',
+		'Nombre',
+	),
+)); ?>
 
 <?php
 // import the library
@@ -22,10 +29,10 @@ $gMap->setZoom(13);
 $gMap->setCenter(39.721089311812094, 2.91165944519042);
 
 // Create GMapInfoWindow
-$info_window = new EGMapInfoWindow('<div>I was living here as a kid!</div>');
+$info_window = new EGMapInfoWindow(CHtml::link(CHtml::encode($model->id), array('view', 'id'=>$model->id)));
 
 // Create marker
-$marker = new EGMapMarker(39.721089311812094, 2.91165944519042, array('title' => '"My Town"'));
+$marker = new EGMapMarker(39.721089311812094, 2.91165944519042, array('title' => CHtml::encode($model->Nombre)));
 $marker->addHtmlInfoWindow($info_window);
 $gMap->addMarker($marker);
 $gMap->renderMap();

@@ -28,11 +28,14 @@ class ProfesionalController extends Controller
 		));
 	}
 
-	public function actionMap()
+	public function actionMap($id)
 	{
 		//$this->redirect(array('search'));
 
-		$this->render('map');
+		//$this->render('map');
+		$this->render('map',array(
+			'model'=>$this->loadModel($id),
+		));
 	}
 
 	public function actionSearch()
