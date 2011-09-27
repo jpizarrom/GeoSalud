@@ -187,12 +187,6 @@ a.BreadCrumbSelected {
     text-decoration: none;
     top: 4px;
 }
-div.BreadCrumbSelected {
-    color: #999999;
-    font-size: 15px;
-    text-decoration: none;
-    top: 4px;
-}
 a.BreadCrumbSelected:visited {
     text-decoration: none;
 }
@@ -664,3 +658,43 @@ div, article, aside, details, figcaption, figure, footer, header, hgroup, menu, 
     float: right;
 }
 
+
+/*Lista de profesionales*/
+.full_list {
+	width: 350px;
+	text-align: left;
+	list-style: none outside none;
+}
+.view img {
+    float: left;
+    height: 70px;
+    width: 115px;
+}
+.full_list li {
+	display: block;
+    float: left;
+    margin-bottom: 5px;
+    width: 350px;
+	padding: 4px 0 4px 0;
+	border-bottom: 1px solid #000;
+}
+.item_list_title {
+	height: 25px;
+    overflow: hidden;
+}
+.item_list_content {
+	height: 34px;
+    overflow: hidden;
+}
+.item_list_img{
+	float: left;
+	height: 70px;
+    width: 115px;
+	margin-right: 4px;
+}
+.view {
+    border: 1px solid #C9E0ED;
+    margin: 10px 0;
+    padding: 10px;
+	border-radius: 5px;
+}
