@@ -16,4 +16,12 @@ Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
 
 
-<?php echo CHtml::link(CHtml::encode('Profesional'), array('admin/Profesional')); ?>
+<?php echo CHtml::link(CHtml::encode('Profesional'), array('admin/Profesional')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Especialidad'), array('admin/Especialidad')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Convenio'), array('admin/Convenio')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Atencion'), array('admin/Atencion')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Facilidadpago'), array('admin/Facilidadpago')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Lugaratencion'), array('admin/Lugaratencion')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Horarioatencion'), array('admin/Horarioatencion')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Caracteristicalugar'), array('admin/Caracteristicalugar')); ?> </br>
+

@@ -8,8 +8,8 @@
 	<?php echo CHtml::encode($data->Nombre); ?>
 	<br />
 
-	<b><?php echo CHtml::encode($data->getAttributeLabel('Dirección')); ?>:</b>
-	<?php echo CHtml::encode($data->Dirección); ?>
+	<b><?php echo CHtml::encode($data->getAttributeLabel('Direccion')); ?>:</b>
+	<?php echo CHtml::encode($data->Direccion); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('Fono')); ?>:</b>

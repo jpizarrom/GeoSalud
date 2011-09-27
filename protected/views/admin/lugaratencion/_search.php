@@ -16,8 +16,8 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->label($model,'Dirección'); ?>
-		<?php echo $form->textField($model,'Dirección',array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->label($model,'Direccion'); ?>
+		<?php echo $form->textField($model,'Direccion',array('size'=>60,'maxlength'=>150)); ?>
 	</div>
 
 	<div class="row">

@@ -20,7 +20,7 @@ $this->menu=array(
 	'attributes'=>array(
 		'lugarid',
 		'Nombre',
-		'Dirección',
+		'Direccion',
 		'Fono',
 		'email',
 		'lat',

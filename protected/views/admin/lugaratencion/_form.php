@@ -16,9 +16,9 @@
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'Dirección'); ?>
-		<?php echo $form->textField($model,'Dirección',array('size'=>60,'maxlength'=>150)); ?>
-		<?php echo $form->error($model,'Dirección'); ?>
+		<?php echo $form->labelEx($model,'Direccion'); ?>
+		<?php echo $form->textField($model,'Direccion',array('size'=>60,'maxlength'=>150)); ?>
+		<?php echo $form->error($model,'Direccion'); ?>
 	</div>
 
 	<div class="row">
