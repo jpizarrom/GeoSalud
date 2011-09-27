@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Profesionals'=>array('index'),
+	'Profesional'=>array('/profesional'),
 	'List',
 
 );
@@ -37,9 +37,9 @@ foreach($prof->atencions as $atencion){
 	//echo $atencion->lugar->Nombre;
 	$lugar = $atencion->lugar;
 	// Create GMapInfoWindow
-	$info_html = CHtml::link(CHtml::encode($prof->Nombre), array('map', 'id'=>$prof->id));
+	$info_html = CHtml::link(CHtml::encode($prof->Nombre), array('view', 'id'=>$prof->id));
 	$info_html .= '<br/>';
-	$info_html .= CHtml::link(CHtml::encode($lugar->Nombre), array('lugar/map', 'lugarid'=>$lugar->lugarid));
+	$info_html .= CHtml::link(CHtml::encode($lugar->Nombre), array('lugar/view', 'id'=>$lugar->lugarid));
 	$info_html .= '<br/>';
 	$info_html .= $lugar->Direccion;
 	$info_html .= '<br/>';

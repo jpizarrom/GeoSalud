@@ -22,9 +22,26 @@ class LugarController extends Controller
 		$this->render('search');
 	}
 
-	public function actionView()
+	public function actionView($id)
 	{
-		$this->render('view');
+		$model = $this->loadModel($id);
+
+		$criteria = new CDbCriteria;
+		$criteria->condition = "lugarid=:keyword";
+		$criteria->params = array (	
+			':keyword'=>$id,
+		);
+		$dataProvider=new CActiveDataProvider('Atencion', array(
+					/*'pagination'=>array(
+						'pageSize'=>Yii::app()->params['postsPerPage'],
+					),*/
+					'criteria'=>$criteria,
+				));
+
+		$this->render('view',array(
+			'model'=>$model,
+			'dataProvider'=>$dataProvider,
+		));
 	}
 
 	// Uncomment the following methods and override them if needed
@@ -53,4 +70,11 @@ class LugarController extends Controller
 		);
 	}
 	*/
+	public function loadModel($id)
+	{
+		$model=Lugaratencion::model()->findByPk($id);
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
 }

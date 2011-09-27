@@ -23,8 +23,25 @@ class ProfesionalController extends Controller
 
 	public function actionView($id)
 	{
+		//$this->redirect(array('search'));
+
+		//$this->render('map');
+		$model = $this->loadModel($id);
+
+		$criteria = new CDbCriteria;
+		$criteria->condition = "profesionalid=:keyword";
+		$criteria->params = array (	
+			':keyword'=>$id,
+		);
+		$dataProvider=new CActiveDataProvider('Atencion', array(
+					/*'pagination'=>array(
+						'pageSize'=>Yii::app()->params['postsPerPage'],
+					),*/
+					'criteria'=>$criteria,
+				));
 		$this->render('view',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 

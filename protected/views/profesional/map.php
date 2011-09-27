@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Profesionals'=>array('index'),
+	'Profesional'=>array('/profesional'),
 	'Map',
 
 );
