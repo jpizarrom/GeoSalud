@@ -15,6 +15,8 @@ the <a href="http://www.yiiframework.com/doc/">documentation</a>.
 Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
 should you have any questions.</p>
 
+<?php echo CHtml::link(CHtml::encode('Profesional'), array('Profesional/index')); ?> </br>
+</br>
 
 <?php echo CHtml::link(CHtml::encode('Profesional'), array('admin/Profesional')); ?> </br>
 <?php echo CHtml::link(CHtml::encode('Especialidad'), array('admin/Especialidad')); ?> </br>

@@ -6,7 +6,7 @@
  * The followings are the available columns in table 'lugaratencion':
  * @property integer $lugarid
  * @property string $Nombre
- * @property string $Dirección
+ * @property string $Direccion
  * @property string $Fono
  * @property string $email
  * @property string $lat
@@ -44,11 +44,11 @@ class Lugaratencion extends CActiveRecord
 		// NOTE: you should only define rules for those attributes that
 		// will receive user inputs.
 		return array(
-			array('Nombre, Dirección, Fono, email', 'length', 'max'=>150),
+			array('Nombre, Direccion, Fono, email', 'length', 'max'=>150),
 			array('lat, lon', 'length', 'max'=>13),
 			// The following rule is used by search().
 			// Please remove those attributes that should not be searched.
-			array('lugarid, Nombre, Dirección, Fono, email, lat, lon', 'safe', 'on'=>'search'),
+			array('lugarid, Nombre, Direccion, Fono, email, lat, lon', 'safe', 'on'=>'search'),
 		);
 	}
 
@@ -74,7 +74,7 @@ class Lugaratencion extends CActiveRecord
 		return array(
 			'lugarid' => 'Lugarid',
 			'Nombre' => 'Nombre',
-			'Dirección' => 'Dirección',
+			'Direccion' => 'Direccion',
 			'Fono' => 'Fono',
 			'email' => 'Email',
 			'lat' => 'Lat',
@@ -95,7 +95,7 @@ class Lugaratencion extends CActiveRecord
 
 		$criteria->compare('lugarid',$this->lugarid);
 		$criteria->compare('Nombre',$this->Nombre,true);
-		$criteria->compare('Dirección',$this->Dirección,true);
+		$criteria->compare('Direccion',$this->Direccion,true);
 		$criteria->compare('Fono',$this->Fono,true);
 		$criteria->compare('email',$this->email,true);
 		$criteria->compare('lat',$this->lat,true);
