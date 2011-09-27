@@ -18,10 +18,10 @@ $this->menu=array(
 </div>-->
 
 
-					<div class="widget_top style1Frame ">
+					        <div class="widget_top style1Frame">
 							<div class="Only"></div>
 						</div>
-						<div class="widget_middle">
+						<div class="widget_middle style1Frame">
 							<div id="">
 
 								<div id="content_top">
