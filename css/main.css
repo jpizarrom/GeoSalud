@@ -227,3 +227,12 @@ div.search-form
 {
 	background: #80CFFF;
 }
+
+.list-view
+{
+	width: 300px;
+}
+.detail-view
+{
+	width: 300px;
+}

@@ -14,6 +14,7 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
+	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
 	'attributes'=>array(
 		'id',
 		'Nombre',
