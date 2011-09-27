@@ -13,6 +13,10 @@ $this->menu=array(
 ?>
 
 <div class="widget_middle style1Frame">
+<div id="content_top">
+	<div class="title_content_top">
+		<h1 class="h1Search">Buscar!!</h1>
+	</div>
 
 <div class="content-l" style="float:left;">
 <?php $this->widget('zii.widgets.CListView', array(
@@ -62,6 +66,8 @@ foreach($prof->atencions as $atencion){
 
 $gMap->renderMap();
 ?>
+</div>
+
 </div>
 
 </div>
