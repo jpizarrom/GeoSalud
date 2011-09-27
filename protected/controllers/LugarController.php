@@ -2,6 +2,7 @@
 
 class LugarController extends Controller
 {
+	public $layout='//layouts/geosalud_column1';
 	public function actionIndex()
 	{
 		//$this->render('index');

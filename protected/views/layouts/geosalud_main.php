@@ -25,7 +25,7 @@
 		<div class="contentHeader">
 
 			<div id="header_logo">
-				<a id="topDiv" href="/"> 				  
+				<a id="topDiv" href="<?php echo Yii::app()->request->baseUrl; ?>"> 				  
 					<img id="" src="<?php echo Yii::app()->request->baseUrl; ?>/images/logo.png" alt="Geosalud!!" style="border-width:0px;" />
 				</a>
 			</div>

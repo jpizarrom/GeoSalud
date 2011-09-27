@@ -3,7 +3,7 @@
 class ProfesionalController extends Controller
 {
 
-	//public $layout='//layouts/column2';
+	public $layout='//layouts/geosalud_column1';
 
 	public function actionIndex()
 	{

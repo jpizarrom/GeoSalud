@@ -1,4 +1,4 @@
-<?php $this->beginContent('//layouts/main'); ?>
+<?php $this->beginContent('//layouts/geosalud_main'); ?>
 
 			<div class="twoColumnLayout">
 				<div>
