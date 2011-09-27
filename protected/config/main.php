@@ -47,6 +47,8 @@ return array(
 				'<controller:\w+>/<id:\d+>/<action:\w+>'=>'<controller>/<action>',
 //				'<controller:\w+>/<action:\w+>'=>'<controller>/<action>',
 			),
+			'showScriptName'=>false,
+			//'caseSensitive'=>false,
 		),
 
 		// uncomment the following to use a MySQL database
