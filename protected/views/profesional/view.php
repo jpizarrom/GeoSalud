@@ -12,8 +12,13 @@ $this->menu=array(
 //	array('label'=>'Manage Profesional', 'url'=>array('admin')),
 );
 ?>
+<div class="widget_middle style1Frame">
+<div id="content_top">
+	<div class="title_content_top">
+		<h1 class="h1Search">Buscar!!</h1>
+	</div>
 
-<div class="content-l">
+<div class="content-l floatleft">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
@@ -21,14 +26,16 @@ $this->menu=array(
 		'id',
 		'Nombre',
 	),
+	'itemView'=>'_view',
 )); ?>
 <?php $this->widget('zii.widgets.CListView', array(
+	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view_atencion',
 )); ?>
 </div>
 
-<div class="content-r">
+<div class="content-r floatright">
 <?php
 
 // import the library
@@ -56,4 +63,8 @@ foreach($model->atencions as $atencion){
 //$gMap->zoomOnMarkers();
 $gMap->renderMap();
 ?>
+</div>
+
+</div>
+
 </div>

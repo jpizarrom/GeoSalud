@@ -18,14 +18,14 @@ $this->menu=array(
 		<h1 class="h1Search">Buscar!!</h1>
 	</div>
 
-<div class="content-l" style="float:left;">
+<div class="content-l floatleft">
 <?php $this->widget('zii.widgets.CListView', array(
 	'dataProvider'=>$dataProvider,
 	'itemView'=>'_view',
 )); ?>
 </div>
 
-<div class="content-r" style="float:right;">
+<div class="content-r floatright">
 <?php
 
 // import the library
