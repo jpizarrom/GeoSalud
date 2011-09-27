@@ -1,10 +1,14 @@
 <?php
 /**
  * 
+ * EGMapApiKeyList Class 
+ * 
  * Collection of Google API Keys
  *
  * @author Antonio Ramirez Cobos
  * @link www.ramirezcobos.com
+ * @deprecated
+ * @since 2011-04-21 Matt Cheale Deprecated as API Keys are no longer required.
  *
  * 
  * @copyright 

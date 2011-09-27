@@ -29,7 +29,7 @@
  * OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-class EGMapDirectionWaypoint
+class EGMapDirectionWayPoint
 {  
   protected $location;
   protected $stopover;
@@ -84,13 +84,8 @@ class EGMapDirectionWaypoint
    * @since 2009-11-20 16:17:42
    * @since 2010-12-22 Modified for Yii Antonio Ramirez
    */
-  public function setLocation($location = null)
-  {
-    if (!$location instanceof EGMapCoord)
-    {
-      throw new CException(Yii::t('EGMap','The destination must be an instance of EGMapCoord!'));
-    }
-    
+  public function setLocation(EGMapCoord $location = null)
+  { 
     $this->location = $location;
   }
   
@@ -113,7 +108,7 @@ class EGMapDirectionWaypoint
    * @author Vincent Guillon <vincentg@theodo.fr>
    * @since 2009-11-20 16:31:42
    */
-  public function optionsToJs()
+  public function toJs()
   {
     $stopover = $this->getStopOver() ? 'true' : 'false';
     

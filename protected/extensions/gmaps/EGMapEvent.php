@@ -7,7 +7,11 @@
  * @since 2011-01-22 
  * @link http://www.ramirezcobos.com
  * 
- * changeLog: 2011-01-22 Included toJs for custom event type selection (DOM or DEFAULT)
+ * changeLog: 
+ * 
+ * 2011-07-02 Included support for addDOMEventListenerOnce and addEventListenerOnce 
+ * 			 modified by: Johnatan -http://www.yiiframework.com/forum/index.php?/user/7513-johnatan/)
+ * 2011-01-22 Included toJs for custom event type selection (DOM or DEFAULT)
  * 
  * A googleMap Event
  * @author Fabrice Bernhard
@@ -34,13 +38,15 @@
  */
 class EGMapEvent
 {
-	const TYPE_EVENT_DEFAULT = 'DEFAULT';
-	const TYPE_EVENT_DOM	 = 'DOM';
-	
-	protected $trigger;
-	protected $function;
-	protected $encapsulate_function;
-	protected $type = self::TYPE_EVENT_DEFAULT;
+        const TYPE_EVENT_DEFAULT         = 'DEFAULT';
+        const TYPE_EVENT_DEFAULT_ONCE    = 'DEFAULT_ONCE';
+        const TYPE_EVENT_DOM             = 'DOM';
+        const TYPE_EVENT_DOM_ONCE        = 'DOM_ONCE';
+        
+        protected $trigger;
+        protected $function;
+        protected $encapsulate_function;
+        protected $type = self::TYPE_EVENT_DEFAULT;
   
   
   /**
@@ -54,6 +60,7 @@ class EGMapEvent
     $this->trigger      = $trigger;
     $this->function     = $function;
     $this->encapsulate_function = $encapsulate_function;
+    $this->setType($type);
   }
   /**
    * 
@@ -62,10 +69,10 @@ class EGMapEvent
    * @throws CException
    */
   public function setType( $type ){
-  	if( $type !== self::TYPE_EVENT_DEFAULT && 
-  		$type !== self::TYPE_EVENT_DOM )
-  		throw new CException( Yii::t('EGMap', 'Unrecognized Event type') );
-  	$this->type = $type;
+        if( $type !== self::TYPE_EVENT_DEFAULT && $type !== self::TYPE_EVENT_DEFAULT_ONCE &&
+                $type !== self::TYPE_EVENT_DOM && $type !== self::TYPE_EVENT_DOM_ONCE )
+                throw new CException( Yii::t('EGMap', 'Unrecognized Event type') );
+        $this->type = $type;
   }
   /**
    * 
@@ -73,7 +80,7 @@ class EGMapEvent
    * @return string
    */
   public function getType( ){
-  	return $this->type;
+        return $this->type;
   }
   
   /**
@@ -90,8 +97,8 @@ class EGMapEvent
   public function getFunction()
   {
     if (!$this->encapsulate_function)
-    	return $this->function;
-   	else  
+        return $this->function;
+        else  
       return 'function() {'.$this->function.'}';
   }
   
@@ -101,11 +108,12 @@ class EGMapEvent
    * @param string $js_object_name
    * @return string
    * @author Fabrice Bernhard
+   * @since 2011-07-02 Johnatan added Once support
    */
-  public function getEventJs($js_object_name)
+  public function getEventJs($js_object_name, $once=false)
   {
-    
-    return 'google.maps.event.addListener('.$js_object_name.', "'.$this->getTrigger().'", '.$this->getFunction().');';
+    $once = ($once)?'Once':'';
+    return 'google.maps.event.addListener'.$once.'('.$js_object_name.', "'.$this->getTrigger().'", '.$this->getFunction().');'.PHP_EOL;
   }
   
    /**
@@ -114,10 +122,12 @@ class EGMapEvent
    * @param string $js_object_name
    * @return string
    * @author Fabrice Bernhard
+   * @since 2011-07-02 Johnatan
    */
-  public function getDomEventJs($js_object_name)
+  public function getDomEventJs($js_object_name, $once=false)
   {
-    return 'google.maps.event.addDomListener('.$js_object_name.', "'.$this->getTrigger().'", '.$this->getFunction().');';
+    $once = ($once)?'Once':'';
+    return 'google.maps.event.addDomListener'.$once.'('.$js_object_name.', "'.$this->getTrigger().'", '.$this->getFunction().');'.PHP_EOL;
   }
   /**
    * returns the javascript code for attaching a Google event or a dom event to a javascript_object
@@ -125,9 +135,20 @@ class EGMapEvent
    * @param  string $js_object_name
    * @return string of event type
    * @author Antonio Ramirez
+   * @since 2011-07-02 Johnatan added Once Support
    */
   public function toJs( $js_object_name ){
-  	return $this->type === self::TYPE_EVENT_DEFAULT? $this->getEventJs($js_object_name) : $this->getDomEventJs($js_object_name);
+      switch ($this->type) {
+        case self::TYPE_EVENT_DEFAULT_ONCE:
+            return $this->getEventJs($js_object_name, true);
+        case self::TYPE_EVENT_DOM:
+            return $this->getDomEventJs($js_object_name);
+        case self::TYPE_EVENT_DOM_ONCE:
+            return $this->getDomEventJs($js_object_name, true);
+        case self::TYPE_EVENT_DEFAULT:
+        default:
+            return $this->getEventJs($js_object_name);
+        }
   }
   
 }

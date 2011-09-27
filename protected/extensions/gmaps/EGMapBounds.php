@@ -168,7 +168,7 @@ class EGMapBounds
   }
   
   /**
-   * Hauteur du carrÃ©
+   * Hauteur du carrŽ
    *
    * @return float
    * @author fabriceb
@@ -181,7 +181,7 @@ class EGMapBounds
   }
   
   /**
-   * Largeur du carrÃ©
+   * Largeur du carrŽ
    *
    * @return float
    * @author fabriceb
@@ -365,6 +365,7 @@ class EGMapBounds
   * @return EGMapBounds
   * @author fabriceb
   * @since 2009-05-02
+  * @since 2011-01-25 modified by Antonio Ramirez
   *
   **/
   public static function getBoundsContainingMarkers($markers, $margin = 0)
@@ -372,12 +373,33 @@ class EGMapBounds
     $coords = array();
     foreach($markers as $marker)
     {
-      array_push($coords, $marker->getGMapCoord());
+      array_push($coords, $marker->position);
     }
    
     return EGMapBounds::getBoundsContainingCoords($coords, $margin);
   }
   
+  /**
+  *
+  * @param GMapPolygon[] $polygons array of Polygons
+  * @param float $margin margin factor for the bounds
+  * @return EGMapBounds
+  * @author Matt Kay
+  * @since 2011-03-10
+  *	Added this function based on getBoundsContainingMarkers
+  *
+  **/
+  public static function getBoundsContainingPolygons($polygons, $margin = 0)
+  {
+    $coords = array();
+    foreach($polygons as $polygon)
+    {
+      // merge LatLng arrays
+      array_merge($coords, $polygon->getCoords());
+    }
+   
+    return EGMapBounds::getBoundsContainingCoords($polygon->getCoords(), $margin);
+  }
   
   /**
    * Calculate the bounds corresponding to a specific center and zoom level for a give map size in pixels

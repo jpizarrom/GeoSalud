@@ -18,22 +18,30 @@ $this->menu=array(
 		'id',
 		'Nombre',
 	),
-)); ?>
+));?>
 
 <?php
+
 // import the library
 Yii::import('ext.gmaps.*');
 
 $gMap = new EGMap();
-$gMap->setZoom(13);
-$gMap->setCenter(39.721089311812094, 2.91165944519042);
+//$gMap->setZoom(13);
+$gMap->zoom = 14;
+$gMap->setCenter(-35.422753, -71.657266);
 
-// Create GMapInfoWindow
-$info_window = new EGMapInfoWindow(CHtml::link(CHtml::encode($model->id), array('view', 'id'=>$model->id)));
 
-// Create marker
-$marker = new EGMapMarker(39.721089311812094, 2.91165944519042, array('title' => CHtml::encode($model->Nombre)));
-$marker->addHtmlInfoWindow($info_window);
-$gMap->addMarker($marker);
+	
+foreach($model->atencions as $atencion){
+	//echo $atencion->lugar->Nombre;
+	$lugar = $atencion->lugar;
+	// Create GMapInfoWindow
+	//$info_window = new EGMapInfoWindow(CHtml::link(CHtml::encode($model->id), array('view', 'id'=>$model->id)));
+	// Create marker	
+	$marker = new EGMapMarker($lugar->lat, $lugar->lon, array('title' => CHtml::encode($lugar->Nombre)));
+	//$marker->addHtmlInfoWindow($info_window);
+	$gMap->addMarker($marker);
+}
+//$gMap->zoomOnMarkers();
 $gMap->renderMap();
 ?>
