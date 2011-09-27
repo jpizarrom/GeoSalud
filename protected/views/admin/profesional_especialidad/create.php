@@ -5,8 +5,8 @@ $this->breadcrumbs=array(
 );?>
 <?php
 $this->menu=array(
-	array('label'=>'List Atencion', 'url'=>array('index')),
-	array('label'=>'Manage Atencion', 'url'=>array('admin')),
+	array('label'=>'List Profesional Especialidad', 'url'=>array('index')),
+	array('label'=>'Manage Profesional Especialidad', 'url'=>array('admin')),
 );
 ?>
 

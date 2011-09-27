@@ -4,8 +4,8 @@ $this->breadcrumbs=array(
 	'Admin',
 );
 $this->menu=array(
-	array('label'=>'List Atencion', 'url'=>array('index')),
-	array('label'=>'Create Atencion', 'url'=>array('create')),
+	array('label'=>'List Profesional Especialidad', 'url'=>array('index')),
+	array('label'=>'Create Profesional Especialidad', 'url'=>array('create')),
 );
 ?>
 
