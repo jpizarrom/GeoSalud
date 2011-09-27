@@ -87,4 +87,12 @@ class Profesional extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function getOptions()
+    	{
+		$arr = array(); 
+		foreach($this->findall() as $p)
+			$arr[$p->id] = $p->Nombre; 
+//			echo $p->Nombre;
+        	return $arr;
+    	}
 }

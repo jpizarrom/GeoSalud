@@ -5,11 +5,11 @@
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('lugarid')); ?>:</b>
-	<?php echo CHtml::encode($data->lugarid); ?>
+	<?php echo CHtml::encode($data->lugar->Nombre); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('profesionalid')); ?>:</b>
-	<?php echo CHtml::encode($data->profesionalid); ?>
+	<?php echo CHtml::encode($data->profesional->Nombre); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->getAttributeLabel('evaluacioncosteada')); ?>:</b>

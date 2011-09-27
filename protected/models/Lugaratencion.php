@@ -105,4 +105,12 @@ class Lugaratencion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function getOptions()
+    	{
+		$arr = array(); 
+		foreach($this->findall() as $p)
+			$arr[$p->lugarid] = $p->Nombre; 
+//			echo $p->Nombre;
+        	return $arr;
+    	}
 }

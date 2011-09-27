@@ -11,13 +11,13 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'lugarid'); ?>
-		<?php echo $form->textField($model,'lugarid'); ?>
+		<?php echo $form->dropDownList($model,'lugarid', Lugaratencion::model()->getOptions()); ?>
 		<?php echo $form->error($model,'lugarid'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'profesionalid'); ?>
-		<?php echo $form->textField($model,'profesionalid'); ?>
+		<?php echo $form->dropDownList($model,'profesionalid', Profesional::model()->getOptions()); ?>
 		<?php echo $form->error($model,'profesionalid'); ?>
 	</div>
 

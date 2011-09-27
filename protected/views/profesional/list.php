@@ -48,7 +48,7 @@ foreach($prof->atencions as $atencion){
 	$info_html .= $lugar->email;
 	$info_html .= '<br/>';
 	foreach($atencion->convenios as $convenio)
-		$info_html .= $convenio->Nombre;
+		$info_html .= $convenio->Nombre.', ';
 
 	$info_window = new EGMapInfoWindow( $info_html );
 	// Create marker	
