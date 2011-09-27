@@ -1,7 +1,7 @@
 <div class="view">
 
 	<b><?php echo CHtml::encode($data->lugar->getAttributeLabel('lugarid')); ?>:</b>
-	<?php echo CHtml::link(CHtml::encode($data->lugar->lugarid), array('view', 'id'=>$data->lugar->lugarid)); ?>
+	<?php echo CHtml::link(CHtml::encode($data->lugar->lugarid), array('lugar/view', 'id'=>$data->lugar->lugarid)); ?>
 	<br />
 
 	<b><?php echo CHtml::encode($data->lugar->getAttributeLabel('Nombre')); ?>:</b>

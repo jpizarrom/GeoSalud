@@ -36,6 +36,10 @@ class ProfesionalController extends Controller
 		$model = $this->loadModel($id);
 
 		$criteria = new CDbCriteria;
+		$criteria->condition = "profesionalid=:keyword";
+		$criteria->params = array (	
+			':keyword'=>$id,
+		);
 		$dataProvider=new CActiveDataProvider('Atencion', array(
 					/*'pagination'=>array(
 						'pageSize'=>Yii::app()->params['postsPerPage'],
