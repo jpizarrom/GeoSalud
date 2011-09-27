@@ -1,6 +1,6 @@
 <?php
 $this->breadcrumbs=array(
-	'Profesional Especialidad'=>array('/admin/profesional_especialidad'),
+	'Profesional Especialidad'=>array('index'),
 	'View',
 );?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>

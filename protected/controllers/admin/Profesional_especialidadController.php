@@ -11,16 +11,16 @@ class Profesional_especialidadController extends Controller
 
 	public function actionCreate()
 	{
-		$model=new Atencion;
+		$model=new ProfesionalEspecialidad;
 
 		// Uncomment the following line if AJAX validation is needed
 		// $this->performAjaxValidation($model);
 
-		if(isset($_POST['Atencion']))
+		if(isset($_POST['ProfesionalEspecialidad']))
 		{
-			$model->attributes=$_POST['Atencion'];
+			$model->attributes=$_POST['ProfesionalEspecialidad'];
 			if($model->save())
-				$this->redirect(array('view','id'=>$model->atencionid));
+				$this->redirect(array('view','id'=>$model->id));
 		}
 
 		$this->render('create',array(

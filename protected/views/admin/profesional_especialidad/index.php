@@ -1,7 +1,12 @@
 <?php
 $this->breadcrumbs=array(
 	'Profesional Especialidad',
-);?>
+);
+$this->menu=array(
+	array('label'=>'Create Atencion', 'url'=>array('create')),
+	array('label'=>'Manage Atencion', 'url'=>array('admin')),
+);
+?>
 <h1><?php echo $this->id . '/' . $this->action->id; ?></h1>
 
 <p>

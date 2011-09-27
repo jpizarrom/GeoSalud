@@ -10,21 +10,15 @@
 	<?php echo $form->errorSummary($model); ?>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'lugarid'); ?>
-		<?php echo $form->dropDownList($model,'lugarid', Lugaratencion::model()->getOptions()); ?>
-		<?php echo $form->error($model,'lugarid'); ?>
+		<?php echo $form->labelEx($model,'id'); ?>
+		<?php echo $form->dropDownList($model,'id', Profesional::model()->getOptions()); ?>
+		<?php echo $form->error($model,'id'); ?>
 	</div>
 
 	<div class="row">
-		<?php echo $form->labelEx($model,'profesionalid'); ?>
-		<?php echo $form->dropDownList($model,'profesionalid', Profesional::model()->getOptions()); ?>
-		<?php echo $form->error($model,'profesionalid'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'evaluacioncosteada'); ?>
-		<?php echo $form->textField($model,'evaluacioncosteada'); ?>
-		<?php echo $form->error($model,'evaluacioncosteada'); ?>
+		<?php echo $form->labelEx($model,'especialidadid'); ?>
+		<?php echo $form->dropDownList($model,'especialidadid', Especialidad::model()->getOptions()); ?>
+		<?php echo $form->error($model,'especialidadid'); ?>
 	</div>
 
 	<div class="row buttons">
