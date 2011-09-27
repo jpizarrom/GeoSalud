@@ -3,7 +3,7 @@
 class ProfesionalController extends Controller
 {
 
-	public $layout='//layouts/column2';
+	//public $layout='//layouts/column2';
 
 	public function actionIndex()
 	{
@@ -33,8 +33,18 @@ class ProfesionalController extends Controller
 		//$this->redirect(array('search'));
 
 		//$this->render('map');
+		$model = $this->loadModel($id);
+
+		$criteria = new CDbCriteria;
+		$dataProvider=new CActiveDataProvider('Atencion', array(
+					/*'pagination'=>array(
+						'pageSize'=>Yii::app()->params['postsPerPage'],
+					),*/
+					'criteria'=>$criteria,
+				));
 		$this->render('map',array(
-			'model'=>$this->loadModel($id),
+			'model'=>$model,
+			'dataProvider'=>$dataProvider,
 		));
 	}
 
@@ -42,27 +52,41 @@ class ProfesionalController extends Controller
 	{
 		$model=new SearchProfesionalForm;
 		$form = new CForm('application.views.profesional.SearchProfesionalForm', $model);
+		$form->method = 'get';
 		
-		if(isset($_POST['SearchProfesionalForm']))
+		if(isset($_GET['SearchProfesionalForm']))
 		    {
 			// collects user input data
-			$model->attributes=$_POST['SearchProfesionalForm'];
+			$model->attributes=$_GET['SearchProfesionalForm'];
 			// validates user input and redirect to previous page if validated
 			if($model->validate()){
 				//echo $model->attributes['profesional'];
 				$keyword = $model->attributes['profesional'];
 				$criteria = new CDbCriteria;
+				/*$criteria->with=array(
+				    'atencions',
+				);*/
 				//$criteria->condition = "id=1";
-				/*$criteria->condition = "Nombre LIKE :keyword";
-				$criteria->params = array (	
+				//$criteria->condition = "atencions.profesionalid IS NOT NULL";
+				/*$criteria->params = array (	
 					':keyword'=>'%'.strtr($keyword,array('%'=>'\%', '_'=>'\_', '\\'=>'\\\\')).'%',
 				);*/
 				$criteria->addSearchCondition('Nombre',$keyword);
+				/*$criteria->with=array(
+				    //'atencions',
+				    'especialidads',
+				);*/
+				/*$criteria->with=array(
+				    'atencions'=>array(
+					'select'=>false,
+					'condition'=>'atencions.profesionalid=1',
+				    ),
+				);*/
 				//Especialidad::model()->findall();
 				$dataProvider=new CActiveDataProvider('Profesional', array(
-					/*'pagination'=>array(
-						'pageSize'=>Yii::app()->params['postsPerPage'],
-					),*/
+					'pagination'=>array(
+						'pageSize'=>4,
+					),
 					'criteria'=>$criteria,
 				));
 				//echo $dataProvider->getItemCount();

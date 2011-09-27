@@ -1,7 +1,7 @@
 <?php
 $this->breadcrumbs=array(
 	'Profesionals'=>array('index'),
-	$model->id,
+	$model->Nombre,
 );
 
 $this->menu=array(
@@ -17,6 +17,7 @@ $this->menu=array(
 
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
+	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
 	'attributes'=>array(
 		'id',
 		'Nombre',

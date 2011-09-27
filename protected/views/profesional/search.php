@@ -11,8 +11,8 @@ $this->menu=array(
 );
 ?>
 
-<h1>Login</h1>
- 
+<div class="view">
 <div class="form">
 <?php echo $form; ?>
+</div>
 </div>

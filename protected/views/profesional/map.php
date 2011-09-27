@@ -11,7 +11,7 @@ $this->menu=array(
 //	array('label'=>'Search Profesional', 'url'=>array('search')),
 );
 ?>
-
+<div class="content-l">
 <?php $this->widget('zii.widgets.CDetailView', array(
 	'data'=>$model,
 	'cssFile' => Yii::app()->baseUrl . '/css/detailview/styles.css',
@@ -20,7 +20,13 @@ $this->menu=array(
 		'Nombre',
 	),
 ));?>
+<?php $this->widget('zii.widgets.CListView', array(
+	'dataProvider'=>$dataProvider,
+	'itemView'=>'_view_atencion',
+)); ?>
+</div>
 
+<div class="content-r">
 <?php
 
 // import the library
@@ -28,6 +34,8 @@ Yii::import('ext.gmaps.*');
 
 $gMap = new EGMap();
 //$gMap->setZoom(13);
+$gMap->setWidth(500);
+$gMap->setHeight(400);
 $gMap->zoom = 14;
 $gMap->setCenter(-35.422753, -71.657266);
 
@@ -46,3 +54,4 @@ foreach($model->atencions as $atencion){
 //$gMap->zoomOnMarkers();
 $gMap->renderMap();
 ?>
+</div>

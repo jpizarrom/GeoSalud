@@ -26,4 +26,5 @@ should you have any questions.</p>
 <?php echo CHtml::link(CHtml::encode('Lugaratencion'), array('admin/Lugaratencion')); ?> </br>
 <?php echo CHtml::link(CHtml::encode('Horarioatencion'), array('admin/Horarioatencion')); ?> </br>
 <?php echo CHtml::link(CHtml::encode('Caracteristicalugar'), array('admin/Caracteristicalugar')); ?> </br>
+<?php echo CHtml::link(CHtml::encode('Caracteristicalugar'), array('admin/Caracteristicalugar')); ?> </br>
 

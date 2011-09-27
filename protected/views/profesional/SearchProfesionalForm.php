@@ -3,7 +3,7 @@
 //$data = CHtml::listData(Especialidad::model()->findAll(), 'especialidadid', 'Nombre'));
 
 return array(
-	'title'=>'Please provide your login credential',
+	//'title'=>'Please provide your login credential',
 
 	'elements'=>array(
 		'profesional'=>array(
@@ -24,7 +24,7 @@ return array(
 	),
 
 	'buttons'=>array(
-		'login'=>array(
+		'find'=>array(
 		'type'=>'submit',
 		'label'=>'Find',
 		),

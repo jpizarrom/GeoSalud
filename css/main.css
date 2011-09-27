@@ -236,3 +236,7 @@ div.search-form
 {
 	width: 300px;
 }
+.content-l {
+	width: 350px;
+	float: left;
+}

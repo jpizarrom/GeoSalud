@@ -74,6 +74,7 @@ class Atencion extends CActiveRecord
 			'lugarid' => 'Lugarid',
 			'profesionalid' => 'Profesionalid',
 			'evaluacioncosteada' => 'Evaluacioncosteada',
+			'convenios' => 'Convenios',
 		);
 	}
 

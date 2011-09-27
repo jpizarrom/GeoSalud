@@ -8,6 +8,13 @@
 	<?php echo CHtml::encode($data->Nombre); ?>
 	<br />
 
+	<b><?php echo CHtml::encode('Especialidad'); ?>:</b>
+	<?php 
+	foreach($data->especialidads as $especialidad)
+		echo CHtml::encode($especialidad->Nombre).', ';
+	?>
+	<br />
+
 	<b><?php echo CHtml::encode('Mapa'); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('map', 'id'=>$data->id)); ?>
 	<br />
