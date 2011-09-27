@@ -44,7 +44,7 @@ Yii::import('ext.gmaps.*');
 
 $gMap = new EGMap();
 //$gMap->setZoom(13);
-$gMap->setWidth(500);
+$gMap->setWidth(400);
 $gMap->setHeight(400);
 $gMap->zoom = 14;
 $gMap->setCenter(-35.422753, -71.657266);

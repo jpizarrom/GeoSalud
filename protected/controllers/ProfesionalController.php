@@ -113,6 +113,9 @@ class ProfesionalController extends Controller
 				}
 				if (!empty($keyword))
 					$criteria->addSearchCondition('t.Nombre',$keyword);
+
+				$criteria->order='t.Nombre';
+
 				/*$criteria->with=array(
 				    //'atencions',
 				    'especialidads',
@@ -126,7 +129,7 @@ class ProfesionalController extends Controller
 				//Especialidad::model()->findall();
 				$dataProvider=new CActiveDataProvider('Profesional', array(
 					'pagination'=>array(
-						'pageSize'=>4,
+						'pageSize'=>3,
 					),
 					'criteria'=>$criteria,
 				));
