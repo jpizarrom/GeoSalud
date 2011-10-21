@@ -47,7 +47,7 @@ class LugarController extends Controller
 				if (!empty($model->attributes['especialidad']) ){
 					if (!empty($criteria->condition) )
 						$criteria->condition .= " and ";
-					$criteria->with[] = 'especialidads';
+                    $criteria->with[] = 'atencions.profesional.especialidads';
 					$criteria->condition .= "especialidads.especialidadid=:especialidad";
 					//$criteria->condition = "id=1";
 					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
