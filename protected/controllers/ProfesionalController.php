@@ -115,6 +115,7 @@ class ProfesionalController extends Controller
 					$criteria->addSearchCondition('t.Nombre',$keyword);
 
 				$criteria->order='t.Nombre';
+                $criteria->group = 't.id';
 
 				/*$criteria->with=array(
 				    //'atencions',
