@@ -98,4 +98,12 @@ class Atencion extends CActiveRecord
 			'criteria'=>$criteria,
 		));
 	}
+	public function getOptions()
+    	{
+		$arr = array(); 
+		foreach($this->findall() as $p)
+			$arr[$p->atencionid] = $p->lugar->Nombre; 
+//			echo $p->Nombre;
+        	return $arr;
+    	}
 }
