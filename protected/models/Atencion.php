@@ -102,7 +102,7 @@ class Atencion extends CActiveRecord
     	{
 		$arr = array(); 
 		foreach($this->findall() as $p)
-			$arr[$p->atencionid] = $p->lugar->Nombre; 
+			$arr[$p->atencionid] = $p->lugar->Nombre . ' - ' . $p->profesional->Nombre; 
 //			echo $p->Nombre;
         	return $arr;
     	}
