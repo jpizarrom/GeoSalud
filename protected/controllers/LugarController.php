@@ -6,7 +6,9 @@ class LugarController extends Controller
 	public function actionIndex()
 	{
 		//$this->render('index');
-		$this->redirect(array('/profesional'));
+		//$this->redirect(array('/profesional'));
+        //$this->redirect(array('/lugar/search'));
+        $this->redirect(array('search'));
 	}
 
 	public function actionList()
@@ -65,7 +67,7 @@ class LugarController extends Controller
 					$criteria->addSearchCondition('t.Nombre',$keyword);
 
 				$criteria->order='t.Nombre';
-                $criteria->group = 't.id';
+                $criteria->group = 't.lugarid';
 
 				/*$criteria->with=array(
 				    //'atencions',
@@ -78,7 +80,7 @@ class LugarController extends Controller
 				    ),
 				);*/
 				//Especialidad::model()->findall();
-				$dataProvider=new CActiveDataProvider('Profesional', array(
+				$dataProvider=new CActiveDataProvider('Lugaratencion', array(
 					'pagination'=>array(
 						'pageSize'=>3,
 					),

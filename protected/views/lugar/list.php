@@ -31,7 +31,7 @@ $gMap->setWidth(400);
 $gMap->setHeight(400);
 $gMap->zoom = 14;
 $gMap->setCenter(-35.422753, -71.657266);
-
+/*
 foreach($dataProvider->getData() as $prof){
 foreach($prof->atencions as $atencion){
 	//echo $atencion->lugar->Nombre;
@@ -58,7 +58,7 @@ foreach($prof->atencions as $atencion){
 }
 }
 
-$gMap->renderMap();
+$gMap->renderMap();*/
 ?>
 </div>
 
