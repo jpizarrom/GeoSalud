@@ -24,7 +24,7 @@ $this->menu=array(
 		),*/
 		array(
 			'class'=>'CButtonColumn',
-			'viewButtonUrl'=>'Yii::app()->createUrl("/controllername/view", array("id" => $data["id"]))',
+            'viewButtonUrl'=>'Yii::app()->createUrl("/admin/atencion_convenio/view", array("id" =>  $data["id"], "atencionid" =>  $data["atencionid"] ))',
 			'deleteButtonUrl'=>'Yii::app()->createUrl("/admin/atencion_convenio/delete", array("id" =>  $data["id"], "atencionid" =>  $data["atencionid"] ))',
 			//'updateButtonUrl'=>'Yii::app()->createUrl("/controllername/update", array("id" =>  $data["id"]))',
 		),

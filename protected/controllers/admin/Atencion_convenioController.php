@@ -45,9 +45,11 @@ class Atencion_convenioController extends Controller
 		$this->render('update');
 	}
 
-	public function actionView()
+	public function actionView($id, $atencionid)
 	{
-		$this->render('view');
+		$this->render('view',array(
+			'model'=>$this->loadModel($id, $atencionid),
+		));
 	}
 
 	public function actionDelete($id, $atencionid)

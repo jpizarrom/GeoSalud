@@ -23,7 +23,7 @@ $this->menu=array(
 		),*/
 		array(
 			'class'=>'CButtonColumn',
-			'viewButtonUrl'=>'Yii::app()->createUrl("/controllername/view", array("id" => $data["id"]))',
+            'viewButtonUrl'=>'Yii::app()->createUrl("/admin/profesional_especialidad/view", array("id" =>  $data["id"], "especialidadid" =>  $data["especialidadid"] ))',
 			'deleteButtonUrl'=>'Yii::app()->createUrl("/admin/profesional_especialidad/delete", array("id" =>  $data["id"], "especialidadid" =>  $data["especialidadid"] ))',
 			'updateButtonUrl'=>'Yii::app()->createUrl("/controllername/update", array("id" =>  $data["id"]))',
 		),

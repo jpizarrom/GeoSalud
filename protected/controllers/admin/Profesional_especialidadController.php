@@ -45,9 +45,11 @@ class Profesional_especialidadController extends Controller
 		$this->render('update');
 	}
 
-	public function actionView()
+	public function actionView($id, $especialidadid)
 	{
-		$this->render('view');
+		$this->render('view',array(
+			'model'=>$this->loadModel($id, $especialidadid),
+		));
 	}
 
 	public function actionDelete($id, $especialidadid)
