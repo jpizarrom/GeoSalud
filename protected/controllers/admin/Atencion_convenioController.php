@@ -50,6 +50,21 @@ class Atencion_convenioController extends Controller
 		$this->render('view');
 	}
 
+	public function actionDelete($id, $atencionid)
+	{
+		//if(Yii::app()->request->isPostRequest)
+		{
+			// we only allow deletion via POST request
+			$this->loadModel($id, $atencionid)->delete();
+
+			// if AJAX request (triggered by deletion via admin grid view), we should not redirect the browser
+			if(!isset($_GET['ajax']))
+				$this->redirect(isset($_POST['returnUrl']) ? $_POST['returnUrl'] : array('admin'));
+		}
+		//else
+		//	throw new CHttpException(400,'Invalid request. Please do not repeat this request again.');
+	}
+
 	// Uncomment the following methods and override them if needed
 	/*
 	public function filters()
@@ -76,4 +91,12 @@ class Atencion_convenioController extends Controller
 		);
 	}
 	*/
+	public function loadModel($id, $atencionid)
+	{
+		$model=AtencionConvenio::model()->findByPk( array('id'=>$id, 'atencionid'=>$atencionid) );
+
+		if($model===null)
+			throw new CHttpException(404,'The requested page does not exist.');
+		return $model;
+	}
 }
