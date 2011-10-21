@@ -21,7 +21,82 @@ class LugarController extends Controller
 
 	public function actionSearch()
 	{
-		$this->render('search');
+		$model=new SearchProfesionalForm;
+		$form = new CForm('application.views.profesional.SearchProfesionalForm', $model);
+		$form->method = 'get';
+		
+		if(isset($_GET['SearchProfesionalForm']))
+		    {
+			// collects user input data
+			$model->attributes=$_GET['SearchProfesionalForm'];
+			// validates user input and redirect to previous page if validated
+			if($model->validate()){
+				//echo $model->attributes['profesional'];
+				$keyword = $model->attributes['profesional'];
+				$criteria = new CDbCriteria;
+				$criteria->together = true;
+				$criteria->with=array();
+				$criteria->condition = '';
+				$criteria->params = array ();
+
+				$criteria->with[] = 'atencions';
+				$criteria->condition .= "atencions.profesionalid is not null";
+				
+				if (!empty($model->attributes['especialidad']) ){
+					if (!empty($criteria->condition) )
+						$criteria->condition .= " and ";
+					$criteria->with[] = 'especialidads';
+					$criteria->condition .= "especialidads.especialidadid=:especialidad";
+					//$criteria->condition = "id=1";
+					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
+					$criteria->params [':especialidad']=$model->attributes['especialidad'];
+				}
+				/*if (!empty($model->attributes['especialidad']) and !empty($model->attributes['convenio']) )
+					$criteria->condition .= " and ";*/
+
+				if (!empty($model->attributes['convenio']) ){
+					if (!empty($criteria->condition) )
+						$criteria->condition .= " and ";
+					$criteria->with[] = 'atencions.convenios';
+					$criteria->condition .= " convenios.id=:convenio";
+					$criteria->params [':convenio']=$model->attributes['convenio'];
+				}
+				if (!empty($keyword))
+					$criteria->addSearchCondition('t.Nombre',$keyword);
+
+				$criteria->order='t.Nombre';
+                $criteria->group = 't.id';
+
+				/*$criteria->with=array(
+				    //'atencions',
+				    'especialidads',
+				);*/
+				/*$criteria->with=array(
+				    'atencions'=>array(
+					'select'=>false,
+					'condition'=>'atencions.profesionalid=1',
+				    ),
+				);*/
+				//Especialidad::model()->findall();
+				$dataProvider=new CActiveDataProvider('Profesional', array(
+					'pagination'=>array(
+						'pageSize'=>3,
+					),
+					'criteria'=>$criteria,
+				));
+				//echo $dataProvider->getItemCount();
+				//$this->render('_list',array('model'=>$model, 'form'=>$form));
+				$this->render('list',array(
+					'dataProvider'=>$dataProvider,
+				));
+				return;
+//			    $this->redirect(Yii::app()->user->returnUrl);
+//			    $this->redirect(array('site/index'));
+//			    $this->redirect(array('view','id'=>$model->profesional));
+			}
+		    }
+
+		$this->render('search',array('model'=>$model, 'form'=>$form));
 	}
 
 	public function actionView($id)

@@ -13,7 +13,7 @@ $this->menu=array(
 
 <!--<div class="widget_middle">
 <div class="form">
-<?php echo $form; ?>
+<?php //echo $form; ?>
 </div>
 </div>-->
 
