@@ -31,11 +31,21 @@ function map_add_markers(){
 <?php
 foreach($dataProvider->getData() as $prof){
 foreach($prof->atencions as $atencion){
+    $info_html = '';
 	//echo $atencion->lugar->Nombre;
 	$lugar = $atencion->lugar;
 	// Create GMapInfoWindow
-	$info_html = CHtml::link(CHtml::encode($prof->Nombre), array('view', 'id'=>$prof->id));
+    foreach($lugar->atencions as $at){
+//	$info_html .= CHtml::link(CHtml::encode($prof->Nombre), array('view', 'id'=>$prof->id));
+	$info_html .= CHtml::link(CHtml::encode($at->profesional->Nombre), array('view', 'id'=>$at->profesional->id));
+//	$info_html .= CHtml::link(CHtml::encode(implode(',',$at->profesional->especialidads)), array('view', 'id'=>$at->profesional->id));
+    $info_html .= ' ';
+	foreach($at->profesional->especialidads as $especialidad)
+		$info_html .= CHtml::encode($especialidad->Nombre).', ';
+
 	$info_html .= '<br/>';
+    }
+
 	$info_html .= CHtml::link(CHtml::encode($lugar->Nombre), array('lugar/view', 'id'=>$lugar->lugarid));
 	$info_html .= '<br/>';
 	$info_html .= $lugar->Direccion;
