@@ -19,6 +19,7 @@ $this->menu=array(
 	'columns'=>array(
 		'id',
 		'atencionid',
+        //'',
 		/*array(
 			'class'=>'CButtonColumn',
 		),*/
