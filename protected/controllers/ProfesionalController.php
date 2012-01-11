@@ -140,7 +140,7 @@ class ProfesionalController extends Controller
 					    'dataProvider'=>$dataProvider,
 				    );
                 if(Yii::app()->request->isAjaxRequest) { 
-                    $this->renderPartial('_listAjaxContent',$data); } 
+                    $this->renderPartial('_list',$data); } 
                 else { 
 				    $this->render('list',$data);
                 }

@@ -1,5 +1,6 @@
 <?php
 $this->breadcrumbs=array(
+	'Profesional'=>array('/profesional'),
 	'Lugar'=>array('/lugar'),
 	'List',
 );?>

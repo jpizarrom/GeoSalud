@@ -1,12 +1,13 @@
 <?php
 $this->breadcrumbs=array(
 	'Profesional'=>array('/profesional'),
+    'Lugar'=>array('/lugar'),
 	'List',
 
 );
 
 $this->menu=array(
-//	array('label'=>'Create Profesional', 'url'=>array('create')),
+	array('label'=>'Create Profesional', 'url'=>array('create')),
 //	array('label'=>'Manage Profesional', 'url'=>array('admin')),
 //	array('label'=>'Search Profesional', 'url'=>array('search')),
 );
@@ -26,7 +27,7 @@ $gMap->addGlobalVariable($gMap->getJsName().'_info_window','null');
 	</div>
 
 <div class="content-l floatleft">
-<?php $this->renderPartial('_listAjaxContent', array('dataProvider'=>$dataProvider)); ?>
+<?php $this->renderPartial('_list', array('dataProvider'=>$dataProvider)); ?>
 </div>
 
 <div class="content-r floatright">

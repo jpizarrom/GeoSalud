@@ -1,6 +1,7 @@
 <?php
 $this->breadcrumbs=array(
-	'Lugar'=>array('/lugar'),
+	'Profesional'=>array('/profesional'),
+    'Lugar'=>array('/lugar'),
 	'Search',
 );
 $this->menu=array(
