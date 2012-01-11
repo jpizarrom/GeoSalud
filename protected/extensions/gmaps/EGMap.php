@@ -297,6 +297,8 @@ class EGMap extends EGMapBase
       $this->removeGlobalVariable($currentName);
       parent::setJsName($name);
       $this->addGlobalVariable($name);
+
+      $this->addGlobalVariable($this->getJsName().'_markers','[]');
    }
    
  	/**
@@ -795,6 +797,7 @@ class EGMap extends EGMapBase
 	    		$return .= $marker->toJs($this->getJsName());
 	    		if( null !== $this->_markerClusterer )
 	    			$this->_markerClusterer->addMarker( $marker );
+                $return .= $this->getJsName()."_markers.push(".$marker->getJsName().");";
 	      		$return .= "\n      ";
 	    	}
 		}
@@ -1094,6 +1097,16 @@ class EGMap extends EGMapBase
 	    	}
     	}
     	return implode('|',$markers_code);
+  	}
+  	public function getMarkers()
+  	{
+    	$markers_code = array();
+    	if(null !== $this->resources->itemAt('markers')){
+            return $this->resources->itemAt('markers');
+    	}
+    	return $markers_code;
+//        return "eee";
+        
   	}
 
   	/**

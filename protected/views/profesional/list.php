@@ -84,8 +84,10 @@ text = data;
 
 $(id).replaceWith(text);
 
-//map_add_markers();
-//map_getMarkersJs();
+//alert("<?php echo $gMap->getMarkers(); ?>");
+//test_map.clearOverlays();
+map_add_markers();
+map_getMarkersJs();
 }
 /*]]>*/
 </script>
