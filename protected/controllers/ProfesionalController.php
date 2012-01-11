@@ -136,9 +136,14 @@ class ProfesionalController extends Controller
 				));
 				//echo $dataProvider->getItemCount();
 				//$this->render('_list',array('model'=>$model, 'form'=>$form));
-				$this->render('list',array(
-					'dataProvider'=>$dataProvider,
-				));
+                $data = array(
+					    'dataProvider'=>$dataProvider,
+				    );
+                if(Yii::app()->request->isAjaxRequest) { 
+                    $this->renderPartial('_listAjaxContent',$data); } 
+                else { 
+				    $this->render('list',$data);
+                }
 				return;
 //			    $this->redirect(Yii::app()->user->returnUrl);
 //			    $this->redirect(array('site/index'));

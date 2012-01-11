@@ -23,5 +23,15 @@
 	<!--<b><?php echo CHtml::encode('Mapa'); ?>:</b>
 	<?php echo CHtml::link(CHtml::encode($data->id), array('map', 'id'=>$data->id)); ?>
 	<br />-->
+<script type="text/javascript">
+/*<![CDATA[*/
+//alert('gg');
+/*]]>*/
+</script>
 
+<?php
+/*Yii::app()->clientScript->registerScript('helloscript_'+$data->id,"
+        alert('hello');
+    ",CClientScript::POS_READY);*/
+?>
 </div>
