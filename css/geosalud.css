@@ -700,5 +700,8 @@ div, article, aside, details, figcaption, figure, footer, header, hgroup, menu, 
 }
 
 #mainmenu ul li {
-display: inline;
+    display: inline;
+}
+.tag a {
+    font-size: inherit;
 }

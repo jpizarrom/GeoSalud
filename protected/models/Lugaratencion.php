@@ -61,6 +61,7 @@ class Lugaratencion extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'atencions' => array(self::HAS_MANY, 'Atencion', 'lugarid'),
+			'atencions_count' => array(self::STAT, 'Atencion', 'lugarid'),
 			'caracteristicalugars' => array(self::MANY_MANY, 'Caracteristicalugar', 'lugar_caracteristica(lugarid, caracteristicaid)'),
 			'facilidadpagos' => array(self::MANY_MANY, 'Facilidadpago', 'lugar_facilidadpago(lugarid, id)'),
 		);
@@ -122,8 +123,8 @@ class Lugaratencion extends CActiveRecord
 		));
 
 		$total=0;
-//		foreach($models as $model)
-//			$total+=$model->frequency;
+		foreach($models as $model)
+			$total+=$model->atencions_count;
 
 		$tags=array();
 //		if($total>0)
@@ -132,7 +133,7 @@ class Lugaratencion extends CActiveRecord
                 $tag=array();
                 $tag['name']=$model->Nombre;
                 $tag['id']=$model->lugarid;
-				$tag['weight']=0;//8+(int)(16*$model->frequency/($total+10));
+				$tag['weight']=12+(int)(16*$model->atencions_count/($total+10));
                 $tags[]=$tag;
             }
 			ksort($tags);

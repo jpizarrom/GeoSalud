@@ -53,6 +53,7 @@ class Especialidad extends CActiveRecord
 		// class name for the relations automatically generated below.
 		return array(
 			'profesionals' => array(self::MANY_MANY, 'Profesional', 'profesional_especialidad(especialidadid, id)'),
+            'profesionals_count'=>array(self::STAT, 'Profesional', 'profesional_especialidad(especialidadid, id)'),
 		);
 	}
 
@@ -112,7 +113,7 @@ class Especialidad extends CActiveRecord
                 $tag=array();
                 $tag['name']=$model->Nombre;
                 $tag['id']=$model->especialidadid;
-				$tag['weight']=0;//8+(int)(16*$model->frequency/($total+10));
+				$tag['weight']=12+(int)(16*$model->profesionals_count/($total+10));
                 $tags[]=$tag;
             }
 			ksort($tags);
