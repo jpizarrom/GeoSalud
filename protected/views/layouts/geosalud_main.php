@@ -71,7 +71,7 @@
 
 			<div class="content_footer">
 				<div class="navigationMenu">
-					<ul>
+					<!--<ul>
 						<li class="first action"><a href="/" title="Buscar">Buscar</a>
 						</li>
 						<li><a href="/contact" title="Informaciones">Nosotros</a></li>
@@ -81,7 +81,20 @@
 						<li><a href="/feedback" title="Danos tu opiniï¿½n">Tu
 								opinión<br />
 						</a></li>
-					</ul>
+					</ul>-->
+
+		<?php $this->widget('zii.widgets.CMenu',array(
+			'items'=>array(
+//				array('label'=>'Home', 'url'=>array('/')),
+				array('label'=>'Buscar Profesional', 'url'=>array('/profesional/index')),
+				array('label'=>'Buscar Lugar', 'url'=>array('/lugar/index')),
+				array('label'=>'Nosotros', 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>'Regístrate', 'url'=>array('')),
+				array('label'=>'Ayuda', 'url'=>array('')),
+				array('label'=>'Tu opinión', 'url'=>array('/site/contact')),
+			),
+		)); ?>
+
 				</div>
 				<div id="" class="footer_about">
 					<br /> <span id="" class="whiteText"> Hartas cosas sobre
