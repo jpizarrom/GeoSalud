@@ -5,6 +5,12 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<div class="widget_middle style1Frame">
+<div id="content_top">
+	<div class="title_content_top">
+		<h1 class="h1Search"></h1>
+	</div>
+
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>
@@ -47,3 +53,7 @@ $this->breadcrumbs=array(
 
 <?php $this->endWidget(); ?>
 </div><!-- form -->
+
+</div>
+
+</div>

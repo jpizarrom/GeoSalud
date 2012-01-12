@@ -4,6 +4,11 @@ $this->breadcrumbs=array(
 	'Contact',
 );
 ?>
+<div class="widget_middle style1Frame">
+<div id="content_top">
+	<div class="title_content_top">
+		<h1 class="h1Search"></h1>
+	</div>
 
 <h1>Contact Us</h1>
 
@@ -79,3 +84,7 @@ If you have business inquiries or other questions, please fill out the following
 </div><!-- form -->
 
 <?php endif; ?>
+
+</div>
+
+</div>

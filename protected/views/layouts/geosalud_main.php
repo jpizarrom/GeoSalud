@@ -35,7 +35,7 @@
 	<div id="mainmenu">
 		<?php $this->widget('zii.widgets.CMenu',array(
 			'items'=>array(
-				array('label'=>'Home', 'url'=>array('/')),
+//				array('label'=>'Home', 'url'=>array('/')),
 				array('label'=>'Profesional', 'url'=>array('/profesional/index')),
 				array('label'=>'Lugar', 'url'=>array('/lugar/index')),
 				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),

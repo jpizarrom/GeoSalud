@@ -27,7 +27,7 @@ $this->menu=array(
 
 								<div id="content_top">
 									<div class="title_content_top">
-										<h1 class="h1Search">Buscar!!</h1>
+										<h1 class="h1Search">Buscar Profesional!!</h1>
 									</div>
 									<div id="searchWrapper">
 										<?php echo $form; ?>
