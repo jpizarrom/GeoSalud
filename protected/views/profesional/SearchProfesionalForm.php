@@ -6,6 +6,7 @@ return array(
 	//'title'=>'Please provide your login credential',
 	//'id'=>'search_box',
 	'class'=>'search_form input-area',
+    'action' => array('profesional/search'),
 	'elements'=>array(
 		'profesional'=>array(
 			'label'=>false,

@@ -49,3 +49,7 @@ $this->menu=array(
 
 							<img alt="" src="/Editor/assets/release/comofunciona.jpg" />
 						</div>-->
+
+			<?php $this->widget('TagCloud', array(
+//				'maxTags'=>Yii::app()->params['tagCloudCount'],
+			)); ?>

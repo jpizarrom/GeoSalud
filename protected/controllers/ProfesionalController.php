@@ -1,8 +1,7 @@
 <?php
 
-class ProfesionalController extends Controller
+class ProfesionalController extends Controller implements IWebServiceProvider
 {
-
 	public $layout='//layouts/geosalud_column1';
 
 	public function actionIndex()
@@ -74,15 +73,7 @@ class ProfesionalController extends Controller
 		$model=new SearchProfesionalForm;
 		$form = new CForm('application.views.profesional.SearchProfesionalForm', $model);
 		$form->method = 'get';
-		
-		if(isset($_GET['SearchProfesionalForm']))
-		    {
-			// collects user input data
-			$model->attributes=$_GET['SearchProfesionalForm'];
-			// validates user input and redirect to previous page if validated
-			if($model->validate()){
-				//echo $model->attributes['profesional'];
-				$keyword = $model->attributes['profesional'];
+
 				$criteria = new CDbCriteria;
 				$criteria->together = true;
 				$criteria->with=array();
@@ -91,6 +82,16 @@ class ProfesionalController extends Controller
 
 				$criteria->with[] = 'atencions';
 				$criteria->condition .= "atencions.profesionalid is not null";
+
+
+		if(isset($_GET['SearchProfesionalForm']))
+		    {
+			// collects user input data
+			$model->attributes=$_GET['SearchProfesionalForm'];
+			// validates user input and redirect to previous page if validated
+			if($model->validate()){
+				//echo $model->attributes['profesional'];
+				$keyword = $model->attributes['profesional'];
 				
 				if (!empty($model->attributes['especialidad']) ){
 					if (!empty($criteria->condition) )
@@ -151,7 +152,34 @@ class ProfesionalController extends Controller
 //			    $this->redirect(array('site/index'));
 //			    $this->redirect(array('view','id'=>$model->profesional));
 			}
-		    }
+		    } elseif(isset($_GET['especialidad']))
+            {
+					if (!empty($criteria->condition) )
+						$criteria->condition .= " and ";
+					$criteria->with[] = 'especialidads';
+					$criteria->condition .= "especialidads.Nombre LIKE :especialidad";
+					//$criteria->condition = "id=1";
+					//$criteria->condition = "atencions.profesionalid IS NOT NULL";
+					$criteria->params [':especialidad']=$_GET['especialidad'];
+
+				$dataProvider=new CActiveDataProvider('Profesional', array(
+					'pagination'=>array(
+						'pageSize'=>3,
+					),
+					'criteria'=>$criteria,
+				));
+				//echo $dataProvider->getItemCount();
+				//$this->render('_list',array('model'=>$model, 'form'=>$form));
+                $data = array(
+					    'dataProvider'=>$dataProvider,
+				    );
+                if(Yii::app()->request->isAjaxRequest) { 
+                    $this->renderPartial('_list',$data); } 
+                else { 
+				    $this->render('list',$data);
+                }
+				return;
+            }
 
 		$this->render('search',array('model'=>$model, 'form'=>$form));
 	}
@@ -199,6 +227,54 @@ class ProfesionalController extends Controller
 		);
 	}
 	*/
+    public function actions()
+	{
+		return array(
+			'ws'=>array(
+				'class'=>'CWebServiceAction',
+#				'classMap'=>array(
+#					'Profesional',
+#				),
+			),
+		);
+	}
+	/**
+	 * This method is required by IWebServiceProvider.
+	 * It makes sure the user is logged in before making changes to data.
+	 * @param CWebService the currently requested Web service.
+	 * @return boolean whether the remote method should be executed.
+	 */
+	public function beforeWebMethod($service)
+	{
+		/*$safeMethods=array(
+			'login',
+			'getContacts',
+		);
+		$pattern='/^('.implode('|',$safeMethods).')$/i';
+		if(!Yii::app()->user->isGuest || preg_match($pattern,$service->methodName))
+			return true;
+		else
+			throw new CException('Login required.');*/
+	}
+
+	/**
+	 * This method is required by IWebServiceProvider.
+	 * @param CWebService the currently requested Web service.
+	 */
+	public function afterWebMethod($service)
+	{
+	}
+	/*** The following methods are Web service APIs ***/
+    
+	/**
+	 * Returns all contact records.
+	 * @return Profesional[] the contact records
+	 * @soap
+	 */
+	public function getContacts()
+	{
+		return Profesional::model()->findAll();
+	}
 
 	public function loadModel($id)
 	{

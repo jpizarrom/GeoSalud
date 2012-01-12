@@ -93,4 +93,26 @@ class Especialidad extends CActiveRecord
 //			echo $p->Nombre;
         	return $arr;
     	}
+
+	public function findTagWeights($limit=20)
+	{
+		$models=$this->findAll(array(
+//			'order'=>'frequency DESC',
+//			'limit'=>$limit,
+		));
+
+		$total=0;
+//		foreach($models as $model)
+//			$total+=$model->frequency;
+
+		$tags=array();
+//		if($total>0)
+		{
+			foreach($models as $model)
+				$tags[$model->Nombre]=0;//8+(int)(16*$model->frequency/($total+10));
+			ksort($tags);
+		}
+		return $tags;
+	}
+
 }
