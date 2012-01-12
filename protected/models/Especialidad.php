@@ -108,8 +108,13 @@ class Especialidad extends CActiveRecord
 		$tags=array();
 //		if($total>0)
 		{
-			foreach($models as $model)
-				$tags[$model->Nombre]=0;//8+(int)(16*$model->frequency/($total+10));
+			foreach($models as $model){
+                $tag=array();
+                $tag['name']=$model->Nombre;
+                $tag['id']=$model->especialidadid;
+				$tag['weight']=0;//8+(int)(16*$model->frequency/($total+10));
+                $tags[]=$tag;
+            }
 			ksort($tags);
 		}
 		return $tags;

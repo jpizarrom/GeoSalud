@@ -2,7 +2,7 @@
 
 Yii::import('zii.widgets.CPortlet');
 
-class TagCloud extends CPortlet
+class EspecialidadTagCloud extends CPortlet
 {
 	public $title='Tags';
 	public $maxTags=20;
@@ -11,12 +11,12 @@ class TagCloud extends CPortlet
 	{
 		$tags=Especialidad::model()->findTagWeights($this->maxTags);
 
-		foreach($tags as $tag=>$weight)
+		foreach($tags as $tag)
 		{
-			$link=CHtml::link(CHtml::encode($tag), array('search','especialidad'=>$tag));
+			$link=CHtml::link(CHtml::encode($tag['name']), array('profesional/search','especialidad'=>$tag['name']));
 			echo CHtml::tag('span', array(
 				'class'=>'tag',
-				'style'=>"font-size:{$weight}pt",
+				'style'=>"font-size:{$tag['weight']}pt",
 			), $link)."\n";
 		}
 	}
