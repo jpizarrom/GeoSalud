@@ -31,14 +31,29 @@
 			</div>
 			<div class="header_bottom">
 				<div class="floatleft">
+
+	<div id="mainmenu">
+		<?php $this->widget('zii.widgets.CMenu',array(
+			'items'=>array(
+				array('label'=>'Home', 'url'=>array('/')),
+				array('label'=>'Profesional', 'url'=>array('/profesional/index')),
+				array('label'=>'Lugar', 'url'=>array('/lugar/index')),
+				array('label'=>'About', 'url'=>array('/site/page', 'view'=>'about')),
+				array('label'=>'Contact', 'url'=>array('/site/contact')),
+				array('label'=>'Login', 'url'=>array('/site/login'), 'visible'=>Yii::app()->user->isGuest),
+				array('label'=>'Logout ('.Yii::app()->user->name.')', 'url'=>array('/site/logout'), 'visible'=>!Yii::app()->user->isGuest)
+			),
+		)); ?>
+	</div><!-- mainmenu -->
+
 					<div class="_BreadCrumb menuBreadCrumb">
 						<div>
 							<!--<a title="Home!!" class="BreadCrumbSelected">Inicio</a>-->
 							<?php if(isset($this->breadcrumbs)):?>
-								<?php $this->widget('zii.widgets.CBreadcrumbs', array(
+								<?php /*$this->widget('zii.widgets.CBreadcrumbs', array(
 									'links'=>$this->breadcrumbs,
 									'htmlOptions'=>array('class'=>'BreadCrumbSelected'),
-								)); ?><!-- breadcrumbs -->
+								)); */?><!-- breadcrumbs -->
 							<?php endif?>
 						</div>
 					</div>

@@ -698,3 +698,7 @@ div, article, aside, details, figcaption, figure, footer, header, hgroup, menu, 
     padding: 10px;
 	border-radius: 5px;
 }
+
+#mainmenu ul li {
+display: inline;
+}
